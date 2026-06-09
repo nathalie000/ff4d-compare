@@ -1,7 +1,8 @@
-<!doctype html><meta charset=utf-8><title>ST no-freeze vs freeze vs Naive Trellis (FF4D SLat)</title>
+<!doctype html><meta charset=utf-8><title>Attention design &amp; training strategy vs Naive TRELLIS</title>
 <style>body{background:#111;color:#eee;font-family:sans-serif;margin:0;padding:16px}
 figure{margin:0 0 18px}figcaption{font-size:13px;margin-bottom:4px}video{width:100%;max-width:900px;background:#000}</style>
-<h2>consist4D FF4D (SLat) — rows: full attn 3k / ST no-freeze 3k / ST freeze 4k / Naive Trellis</h2>
+<h2>Attention design &amp; training strategy vs Naive TRELLIS</h2>
+<p style="font-size:13px;opacity:.85">Rows top&rarr;bottom: full attention (full fine-tune) / spatio-temporal attention (full fine-tune) / spatio-temporal attention (frozen backbone) / Naive TRELLIS (per-frame baseline)</p>
   <figure><figcaption>in-the-wild / blooming_rose</figcaption><video src="in-the-wild__blooming_rose.mp4" autoplay loop muted playsinline controls></video></figure>
   <figure><figcaption>in-the-wild / blooming_tulip</figcaption><video src="in-the-wild__blooming_tulip.mp4" autoplay loop muted playsinline controls></video></figure>
   <figure><figcaption>in-the-wild / dancing_robot</figcaption><video src="in-the-wild__dancing_robot.mp4" autoplay loop muted playsinline controls></video></figure>
