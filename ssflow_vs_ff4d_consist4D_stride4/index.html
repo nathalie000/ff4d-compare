@@ -1,129 +1,30 @@
-<!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SS-flow vs FF4D (SLat) — consist4D stride4 (26 objects)</title>
-<style>
-  :root { color-scheme: dark; }
-  body { margin:0; background:#111; color:#eee; font-family: system-ui,-apple-system,Segoe UI,Roboto,sans-serif; }
-  header { padding:18px 22px; border-bottom:1px solid #333; position:sticky; top:0; background:#111; z-index:1; }
-  header h1 { font-size:18px; margin:0 0 6px; }
-  header p { margin:0; color:#aaa; font-size:13px; line-height:1.5; }
-  header b { color:#eee; }
-  .grid { display:grid; gap:18px; padding:22px; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); }
-  .card { margin:0; background:#1a1a1a; border:1px solid #2a2a2a; border-radius:10px; overflow:hidden; }
-  figcaption { padding:8px 12px; font-size:13px; border-bottom:1px solid #2a2a2a; }
-  .cat { color:#7aa2ff; font-size:11px; text-transform:uppercase; letter-spacing:.04em; margin-right:6px; }
-  video { width:100%; display:block; background:#000; }
-</style></head>
-<body>
-<header>
-  <h1>SS-flow vs FF4D (SLat) — consist4D, frame-stride 4 — 26 objects</h1>
-  <p>Each clip stacks 6 rows (6 views/row). Methods are paired <b>appearance over structure</b>: 1 FF4D full-attn (gaussian) · 2 SS-flow full-attn (occupancy) · 3 FF4D spatial-temporal (gaussian) · 4 SS-flow spatial-temporal (occupancy) · 5 baseline per-frame (gaussian) · 6 baseline per-frame (occupancy). If the occupancy row is clean but the gaussian row is broken, SLat-flow is failing; if occupancy is also broken, SS-flow is failing.</p>
-</header>
-<div class="grid">
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> blooming rose</figcaption>
-      <video src="in-the-wild__blooming_rose.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> blooming tulip</figcaption>
-      <video src="in-the-wild__blooming_tulip.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> dancing robot</figcaption>
-      <video src="in-the-wild__dancing_robot.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> dancing spiderman</figcaption>
-      <video src="in-the-wild__dancing_spiderman.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> deforming toy rabbit</figcaption>
-      <video src="in-the-wild__deforming_toy_rabbit.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> feeding squirrel</figcaption>
-      <video src="in-the-wild__feeding_squirrel.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> looking around jack russell</figcaption>
-      <video src="in-the-wild__looking_around_jack_russell.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> looking up kitten</figcaption>
-      <video src="in-the-wild__looking_up_kitten.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> pecking blue jay</figcaption>
-      <video src="in-the-wild__pecking_blue_jay.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> smiling corgi</figcaption>
-      <video src="in-the-wild__smiling_corgi.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> splashing water</figcaption>
-      <video src="in-the-wild__splashing_water.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">in-the-wild</span> walking white faced egret</figcaption>
-      <video src="in-the-wild__walking_white_faced_egret.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> dancing patrick star</figcaption>
-      <video src="synthetic__dancing_patrick_star.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> firing pistol</figcaption>
-      <video src="synthetic__firing_pistol.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> flying ironman</figcaption>
-      <video src="synthetic__flying_ironman.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> idling elephant</figcaption>
-      <video src="synthetic__idling_elephant.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> laughing minions</figcaption>
-      <video src="synthetic__laughing_minions.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> running triceratops</figcaption>
-      <video src="synthetic__running_triceratops.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> scaring skull</figcaption>
-      <video src="synthetic__scaring_skull.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> sighing frog</figcaption>
-      <video src="synthetic__sighing_frog.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> smiling corgi</figcaption>
-      <video src="synthetic__smiling_corgi.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> swimming guppie</figcaption>
-      <video src="synthetic__swimming_guppie.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> swimming yellow tang</figcaption>
-      <video src="synthetic__swimming_yellow_tang.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> walking astronaut</figcaption>
-      <video src="synthetic__walking_astronaut.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> walking aurorus</figcaption>
-      <video src="synthetic__walking_aurorus.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-    <figure class="card">
-      <figcaption><span class="cat">synthetic</span> walking siamese cat</figcaption>
-      <video src="synthetic__walking_siamese_cat.mp4" autoplay loop muted playsinline controls preload="metadata"></video>
-    </figure>
-</div>
-</body></html>
+<!doctype html><meta charset=utf-8><title>ST no-freeze vs freeze vs Naive Trellis (FF4D SLat)</title>
+<style>body{background:#111;color:#eee;font-family:sans-serif;margin:0;padding:16px}
+figure{margin:0 0 18px}figcaption{font-size:13px;margin-bottom:4px}video{width:100%;max-width:900px;background:#000}</style>
+<h2>consist4D FF4D (SLat) — rows: full attn 3k / ST no-freeze 3k / ST freeze 4k / Naive Trellis</h2>
+  <figure><figcaption>in-the-wild / blooming_rose</figcaption><video src="in-the-wild__blooming_rose.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / blooming_tulip</figcaption><video src="in-the-wild__blooming_tulip.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / dancing_robot</figcaption><video src="in-the-wild__dancing_robot.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / dancing_spiderman</figcaption><video src="in-the-wild__dancing_spiderman.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / deforming_toy_rabbit</figcaption><video src="in-the-wild__deforming_toy_rabbit.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / feeding_squirrel</figcaption><video src="in-the-wild__feeding_squirrel.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / looking_around_jack_russell</figcaption><video src="in-the-wild__looking_around_jack_russell.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / looking_up_kitten</figcaption><video src="in-the-wild__looking_up_kitten.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / pecking_blue_jay</figcaption><video src="in-the-wild__pecking_blue_jay.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / smiling_corgi</figcaption><video src="in-the-wild__smiling_corgi.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / splashing_water</figcaption><video src="in-the-wild__splashing_water.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>in-the-wild / walking_white_faced_egret</figcaption><video src="in-the-wild__walking_white_faced_egret.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / dancing_patrick_star</figcaption><video src="synthetic__dancing_patrick_star.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / firing_pistol</figcaption><video src="synthetic__firing_pistol.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / flying_ironman</figcaption><video src="synthetic__flying_ironman.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / idling_elephant</figcaption><video src="synthetic__idling_elephant.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / laughing_minions</figcaption><video src="synthetic__laughing_minions.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / running_triceratops</figcaption><video src="synthetic__running_triceratops.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / scaring_skull</figcaption><video src="synthetic__scaring_skull.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / sighing_frog</figcaption><video src="synthetic__sighing_frog.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / smiling_corgi</figcaption><video src="synthetic__smiling_corgi.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / swimming_guppie</figcaption><video src="synthetic__swimming_guppie.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / swimming_yellow_tang</figcaption><video src="synthetic__swimming_yellow_tang.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / walking_astronaut</figcaption><video src="synthetic__walking_astronaut.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / walking_aurorus</figcaption><video src="synthetic__walking_aurorus.mp4" autoplay loop muted playsinline controls></video></figure>
+  <figure><figcaption>synthetic / walking_siamese_cat</figcaption><video src="synthetic__walking_siamese_cat.mp4" autoplay loop muted playsinline controls></video></figure>
