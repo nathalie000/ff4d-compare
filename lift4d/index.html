@@ -25,45 +25,35 @@
 <p class="note">Video→4D reconstructions from the two-stage (node → node_delta) camel recipe, 35 frames @480p.
 All renders: <b>GT</b> | <b>SAM3D GS</b> (per-frame prediction) | <b>Canonical GS</b> | <b>Deformed GS</b> (ours).</p>
 
-<h2>1&nbsp;·&nbsp;Layout post-processing — before vs. after (slerp+smooth)</h2>
-<p class="note">The per-frame SAM3D layout (object pose) jitters and flips on near-symmetric objects.
-Post-processing (no retraining): rotation ← <b>slerp</b>(first, last frame) — removes flips;
-translation / scale / per-frame compose corrections ← <b>Savitzky-Golay</b> smoothing (window 9) — removes pose noise while keeping real motion.
-Both columns rendered identically from the same checkpoint; only the layout track differs.</p>
-<table>
-<tr><th>sequence</th><th>rotation jitter before (deg/frame)</th><th>after</th><th>translation Δ before</th><th>after</th></tr>
-<tr><td>aim_bear</td><td>4.5</td><td><b>1.1</b></td><td>0.035</td><td><b>0.007</b></td></tr>
-<tr><td>aim_elephant</td><td>6.5</td><td><b>2.1</b></td><td>0.103</td><td><b>0.035</b></td></tr>
-<tr><td>mose_cat</td><td>12.1</td><td><b>2.2</b></td><td>0.053</td><td><b>0.015</b></td></tr>
-<tr><td>ytvos_chameleon</td><td>12.4</td><td><b>0.7</b></td><td>0.029</td><td><b>0.007</b></td></tr>
-</table>
+<h2>1&nbsp;·&nbsp;Layout post-processing — before vs. after</h2>
+
 
 <h3>aim_bear</h3>
 <div class="pair">
-  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span></div>
     <video controls loop muted preload="metadata" src="pp_aim_bear_before.mp4"></video></div>
-  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — post-processed</div>
     <video controls loop muted preload="metadata" src="pp_aim_bear_after.mp4"></video></div>
 </div>
 <h3>aim_elephant</h3>
 <div class="pair">
-  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span></div>
     <video controls loop muted preload="metadata" src="pp_aim_elephant_before.mp4"></video></div>
-  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — post-processed</div>
     <video controls loop muted preload="metadata" src="pp_aim_elephant_after.mp4"></video></div>
 </div>
 <h3>mose_cat</h3>
 <div class="pair">
-  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span></div>
     <video controls loop muted preload="metadata" src="pp_mose_cat_before.mp4"></video></div>
-  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — post-processed</div>
     <video controls loop muted preload="metadata" src="pp_mose_cat_after.mp4"></video></div>
 </div>
 <h3>ytvos_chameleon</h3>
 <div class="pair">
-  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span></div>
     <video controls loop muted preload="metadata" src="pp_ytvos_chameleon_before.mp4"></video></div>
-  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — post-processed</div>
     <video controls loop muted preload="metadata" src="pp_ytvos_chameleon_after.mp4"></video></div>
 </div>
 
