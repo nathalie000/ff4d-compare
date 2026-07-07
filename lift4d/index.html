@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lift4D — layout post-processing &amp; canonical asset prep</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0 auto; max-width: 1500px;
+         padding: 24px 32px 80px; background: #fafafa; color: #1a1a1a; }
+  h1 { font-size: 1.6em; } h2 { margin-top: 2em; border-bottom: 2px solid #ddd; padding-bottom: 6px; }
+  p.note { color: #555; max-width: 70em; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 10px 0 34px; }
+  .cell video { width: 100%; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+  .cell .cap { font-weight: 600; margin: 4px 2px; }
+  .cap .before { color: #b03030; } .cap .after { color: #1a7a2f; }
+  .assets { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  table { border-collapse: collapse; margin: 12px 0; }
+  td, th { border: 1px solid #ccc; padding: 5px 12px; text-align: center; }
+  th { background: #efefef; }
+  code { background: #eee; padding: 1px 5px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<h1>Lift4D (SAM3D-SC-GS) — layout post-processing &amp; ff4d-sam3d asset prep</h1>
+<p class="note">Video→4D reconstructions from the two-stage (node → node_delta) camel recipe, 35 frames @480p.
+All renders: <b>GT</b> | <b>SAM3D GS</b> (per-frame prediction) | <b>Canonical GS</b> | <b>Deformed GS</b> (ours).</p>
+
+<h2>1&nbsp;·&nbsp;Layout post-processing — before vs. after (slerp+smooth)</h2>
+<p class="note">The per-frame SAM3D layout (object pose) jitters and flips on near-symmetric objects.
+Post-processing (no retraining): rotation ← <b>slerp</b>(first, last frame) — removes flips;
+translation / scale / per-frame compose corrections ← <b>Savitzky-Golay</b> smoothing (window 9) — removes pose noise while keeping real motion.
+Both columns rendered identically from the same checkpoint; only the layout track differs.</p>
+<table>
+<tr><th>sequence</th><th>rotation jitter before (deg/frame)</th><th>after</th><th>translation Δ before</th><th>after</th></tr>
+<tr><td>aim_bear</td><td>4.5</td><td><b>1.1</b></td><td>0.035</td><td><b>0.007</b></td></tr>
+<tr><td>aim_elephant</td><td>6.5</td><td><b>2.1</b></td><td>0.103</td><td><b>0.035</b></td></tr>
+<tr><td>mose_cat</td><td>12.1</td><td><b>2.2</b></td><td>0.053</td><td><b>0.015</b></td></tr>
+<tr><td>ytvos_chameleon</td><td>12.4</td><td><b>0.7</b></td><td>0.029</td><td><b>0.007</b></td></tr>
+</table>
+
+<h3>aim_bear</h3>
+<div class="pair">
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+    <video controls loop muted preload="metadata" src="pp_aim_bear_before.mp4"></video></div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+    <video controls loop muted preload="metadata" src="pp_aim_bear_after.mp4"></video></div>
+</div>
+<h3>aim_elephant</h3>
+<div class="pair">
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+    <video controls loop muted preload="metadata" src="pp_aim_elephant_before.mp4"></video></div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+    <video controls loop muted preload="metadata" src="pp_aim_elephant_after.mp4"></video></div>
+</div>
+<h3>mose_cat</h3>
+<div class="pair">
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+    <video controls loop muted preload="metadata" src="pp_mose_cat_before.mp4"></video></div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+    <video controls loop muted preload="metadata" src="pp_mose_cat_after.mp4"></video></div>
+</div>
+<h3>ytvos_chameleon</h3>
+<div class="pair">
+  <div class="cell"><div class="cap"><span class="before">BEFORE</span> — raw SAM3D layout</div>
+    <video controls loop muted preload="metadata" src="pp_ytvos_chameleon_before.mp4"></video></div>
+  <div class="cell"><div class="cap"><span class="after">AFTER</span> — slerp+smooth post-processing</div>
+    <video controls loop muted preload="metadata" src="pp_ytvos_chameleon_after.mp4"></video></div>
+</div>
+
+<h2>2&nbsp;·&nbsp;ff4d-sam3d data prep — per-frame canonical 3D assets</h2>
+<p class="note">Each video steps through 16 frames (2&nbsp;fps) sampled across the clip. Per frame, 5 canonical views of:
+<b>RAW gs</b> — the Lift4D asset (deformed gaussians, rigid motion factored into the layout stream; the encoder INPUT) ·
+<b>OURS gs / mesh</b> — SLat encode→decode ·
+<b>OURS occ</b> — SS encode→decode (position-colored occupancy).
+Assets use the full deformation (node-base MLP baked via <code>baked_dxyz</code>) and the temporally-smoothed rigid decomposition.</p>
+<div class="assets">
+
+<div class="cell"><div class="cap">camel2_aim_bear</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_aim_bear_16f.mp4"></video></div>
+<div class="cell"><div class="cap">camel2_aim_elephant</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_aim_elephant_16f.mp4"></video></div>
+<div class="cell"><div class="cap">camel2_aim_tiger</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_aim_tiger_16f.mp4"></video></div>
+<div class="cell"><div class="cap">camel2_cop3d_dog2</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_cop3d_dog2_16f.mp4"></video></div>
+<div class="cell"><div class="cap">camel2_mose_bear</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_mose_bear_16f.mp4"></video></div>
+<div class="cell"><div class="cap">camel2_ytvos_giant_panda</div>
+  <video controls loop muted preload="metadata" src="assets_camel2_ytvos_giant_panda_16f.mp4"></video></div>
+</div>
+</body>
+</html>
