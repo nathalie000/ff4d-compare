@@ -1,15 +1,14 @@
 <!doctype html><html lang=en><meta charset=utf-8>
 <meta name=viewport content="width=device-width, initial-scale=1">
-<title>ff4d-sam3d — eval galleries</title>
-<style>body{font-family:system-ui,sans-serif;background:#111;color:#eee;margin:0;padding:32px}
-h1{font-size:20px} a{color:#7aa2ff;font-size:16px} li{margin:8px 0}</style>
-<h1>ff4d-sam3d — motion324-test eval galleries</h1>
-<p style=color:#aaa>3-row compare videos: GT vs. Ours vs. per-frame SAM-3D baseline.</p>
+<title>ff4d-sam3d evals</title>
+<style>:root{color-scheme:dark}body{font-family:system-ui,sans-serif;background:#111;color:#eee;
+margin:0;padding:28px}a{color:#7aa2ff}h1{font-size:20px}li{margin:6px 0}</style>
+<h1>ff4d-sam3d — eval galleries (motion324-test, e2e video-to-4D)</h1>
+<p>Ours = geom_full_layoutnone@3500 + tex_exact_gallery@3000 (runs/ours_best) vs finetuned
+per-frame SAM-3D baseline.</p>
 <ul>
-<li><a href="appearance_e2e.html">NEW — Appearance e2e compare (Ours exg1k vs per-frame, 40 obj, cond-cam)</a></li>
-<li><a href="geometry_e2e.html">NEW — Geometry (mesh) e2e compare (40 obj, cond-cam)</a></li>
-<li><a href="appearance.html">Appearance (gaussian)</a></li>
-<li><a href="mesh.html">Geometry (mesh normals)</a></li>
+<li><a href="appearance_e2e.html">Appearance e2e (gaussian)</a></li>
+<li><a href="mesh.html">Geometry e2e (mesh normals)</a></li>
 <li><a href="occupancy.html">Occupancy (voxels)</a></li>
-<li><a href="lift4d.html">Lift4D ingest — our turntable vs Lift4D reconstruction</a></li>
+<li><a href="lift4d.html">Lift4D ingest</a></li>
 </ul></html>
