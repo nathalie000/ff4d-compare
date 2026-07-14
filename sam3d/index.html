@@ -2,10 +2,16 @@
 <meta name=viewport content="width=device-width, initial-scale=1">
 <title>ff4d-sam3d evals</title>
 <style>:root{color-scheme:dark}body{font-family:system-ui,sans-serif;background:#111;color:#eee;
-margin:0;padding:28px}a{color:#7aa2ff}h1{font-size:20px}li{margin:6px 0}</style>
-<h1>ff4d-sam3d — eval galleries (motion324-test, e2e video-to-4D)</h1>
-<p>Ours = geom_full_layoutnone@3500 + tex_exact_gallery@3000 (runs/ours_best) vs finetuned
-per-frame SAM-3D baseline.</p>
+margin:0;padding:28px}a{color:#7aa2ff}h1{font-size:20px}h2{font-size:15px;color:#bbb;margin-top:22px}
+li{margin:6px 0}</style>
+<h1>ff4d-sam3d — eval galleries (motion324-test + in-the-wild)</h1>
+<h2>4-method comparisons (Ours vs Per-frame SAM-3D vs ActionMesh vs Motion 3-to-4)</h2>
+<ul>
+<li><a href="cmp_mesh.html">Geometry comparison</a> — grouped: shape-consistency / rotation / other</li>
+<li><a href="cmp_app.html">Appearance comparison</a> — grouped: texture-consistency / rotation / other</li>
+<li><a href="cmp_wild.html">In-the-wild comparison</a> — object-centric + full-video groups</li>
+</ul>
+<h2>Ours vs Per-frame SAM-3D (e2e video-to-4D)</h2>
 <ul>
 <li><a href="appearance_e2e.html">Appearance e2e (gaussian)</a></li>
 <li><a href="mesh.html">Geometry e2e (mesh normals)</a></li>

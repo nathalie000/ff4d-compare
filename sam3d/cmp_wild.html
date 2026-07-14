@@ -1,0 +1,34 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>ff4d-sam3d — In-the-wild comparison (4 methods)</title>
+<style>
+:root{color-scheme:dark} body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+background:#111;color:#eee;margin:0} header{padding:18px 22px;border-bottom:1px solid #333;
+position:sticky;top:0;background:#111;z-index:1} header h1{font-size:18px;margin:0 0 6px}
+header p{margin:0;color:#aaa;font-size:13px} header b{color:#eee} a{color:#7aa2ff}
+.grid{display:grid;gap:18px;padding:22px;grid-template-columns:repeat(auto-fill,minmax(560px,1fr))}
+.card{margin:0;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;overflow:hidden}
+h2{font-size:15px;margin:20px 22px 0;color:#ddd;border-bottom:1px solid #333;padding-bottom:6px}
+figcaption{padding:8px 12px;font-size:12px;color:#aaa;border-bottom:1px solid #2a2a2a}
+video{width:100%;display:block;background:#000}
+</style>
+<header><h1>In-the-wild — 4-method comparison (AIM + mose_cat)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>Ours · Per-frame SAM-3D · ActionMesh · Motion 3-to-4</b> &nbsp;|&nbsp; qualitative (no GT)</p></header>
+<h2>Object-centric (rotation-only layout) (6)</h2>
+<div class=grid>
+<figure class=card><figcaption>obj_bear</figcaption><video src="cmp_wild/obj_bear.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_deer</figcaption><video src="cmp_wild/obj_deer.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_elephant</figcaption><video src="cmp_wild/obj_elephant.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_fox</figcaption><video src="cmp_wild/obj_fox.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_tiger</figcaption><video src="cmp_wild/obj_tiger.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_mose_cat</figcaption><video src="cmp_wild/obj_mose_cat.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+</div>
+<h2>Full video (full R,t,s layout; baselines can&#x27;t represent translation) (6)</h2>
+<div class=grid>
+<figure class=card><figcaption>full_bear</figcaption><video src="cmp_wild/full_bear.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_deer</figcaption><video src="cmp_wild/full_deer.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_elephant</figcaption><video src="cmp_wild/full_elephant.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_fox</figcaption><video src="cmp_wild/full_fox.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_tiger</figcaption><video src="cmp_wild/full_tiger.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_mose_cat</figcaption><video src="cmp_wild/full_mose_cat.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+</div>
+</html>
