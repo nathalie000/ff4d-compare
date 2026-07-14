@@ -11,24 +11,35 @@ header p{margin:0;color:#aaa;font-size:13px} header b{color:#eee} a{color:#7aa2f
 h2{font-size:15px;margin:20px 22px 0;color:#ddd;border-bottom:1px solid #333;padding-bottom:6px}
 figcaption{padding:8px 12px;font-size:12px;color:#aaa;border-bottom:1px solid #2a2a2a}
 video{width:100%;display:block;background:#000}
+button#toggleAll{margin-top:8px;padding:5px 12px;font-size:13px;background:#2a2a2a;color:#eee;
+border:1px solid #444;border-radius:6px;cursor:pointer} button#toggleAll:hover{background:#333}
 </style>
-<header><h1>In-the-wild — 4-method comparison (AIM + mose_cat)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>Ours · Per-frame SAM-3D · ActionMesh · Motion 3-to-4</b> &nbsp;|&nbsp; qualitative (no GT)</p></header>
+<header><h1>In-the-wild — 4-method comparison (AIM + mose_cat)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>Ours · Per-frame SAM-3D · ActionMesh · Motion 3-to-4</b> &nbsp;|&nbsp; qualitative (no GT)</p>
+<button id=toggleAll onclick="toggleAll()">&#9208; Pause all</button></header>
+<script>
+function toggleAll(){
+  const vids=document.querySelectorAll('video'), b=document.getElementById('toggleAll');
+  const anyPlaying=[...vids].some(v=>!v.paused);
+  vids.forEach(v=>{ anyPlaying?v.pause():v.play().catch(()=>{}); });
+  b.innerHTML=anyPlaying?'&#9654; Play all':'&#9208; Pause all';
+}
+</script>
 <h2>Object-centric (rotation-only layout) (6)</h2>
 <div class=grid>
-<figure class=card><figcaption>obj_bear</figcaption><video src="cmp_wild/obj_bear.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>obj_deer</figcaption><video src="cmp_wild/obj_deer.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>obj_elephant</figcaption><video src="cmp_wild/obj_elephant.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>obj_fox</figcaption><video src="cmp_wild/obj_fox.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>obj_tiger</figcaption><video src="cmp_wild/obj_tiger.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>obj_mose_cat</figcaption><video src="cmp_wild/obj_mose_cat.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>obj_bear</figcaption><video src="cmp_wild/obj_bear.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>obj_deer</figcaption><video src="cmp_wild/obj_deer.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>obj_elephant</figcaption><video src="cmp_wild/obj_elephant.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>obj_fox</figcaption><video src="cmp_wild/obj_fox.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>obj_tiger</figcaption><video src="cmp_wild/obj_tiger.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>obj_mose_cat</figcaption><video src="cmp_wild/obj_mose_cat.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 </div>
 <h2>Full video (full R,t,s layout; baselines can&#x27;t represent translation) (6)</h2>
 <div class=grid>
-<figure class=card><figcaption>full_bear</figcaption><video src="cmp_wild/full_bear.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>full_deer</figcaption><video src="cmp_wild/full_deer.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>full_elephant</figcaption><video src="cmp_wild/full_elephant.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>full_fox</figcaption><video src="cmp_wild/full_fox.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>full_tiger</figcaption><video src="cmp_wild/full_tiger.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
-<figure class=card><figcaption>full_mose_cat</figcaption><video src="cmp_wild/full_mose_cat.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>full_bear</figcaption><video src="cmp_wild/full_bear.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>full_deer</figcaption><video src="cmp_wild/full_deer.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>full_elephant</figcaption><video src="cmp_wild/full_elephant.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>full_fox</figcaption><video src="cmp_wild/full_fox.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>full_tiger</figcaption><video src="cmp_wild/full_tiger.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>full_mose_cat</figcaption><video src="cmp_wild/full_mose_cat.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 </div>
 </html>
