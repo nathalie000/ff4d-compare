@@ -1,0 +1,66 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>ff4d-sam3d — Shape attention — full vs spatial (geometry, mesh)</title>
+<style>
+:root{color-scheme:dark} body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+background:#111;color:#eee;margin:0} header{padding:18px 22px;border-bottom:1px solid #333;
+position:sticky;top:0;background:#111;z-index:1} header h1{font-size:18px;margin:0 0 6px}
+header p{margin:0;color:#aaa;font-size:13px} header b{color:#eee} a{color:#7aa2ff}
+.grid{display:grid;gap:18px;padding:22px;grid-template-columns:repeat(auto-fill,minmax(520px,1fr))}
+.card{margin:0;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;overflow:hidden}
+h2{font-size:15px;margin:20px 22px 0;color:#ddd;border-bottom:1px solid #333;padding-bottom:6px}
+figcaption{padding:8px 12px;font-size:12px;color:#aaa;border-bottom:1px solid #2a2a2a}
+video{width:100%;display:block;background:#000}
+</style>
+<header><h1>Shape attention — full vs spatial (geometry, mesh)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>full shape-attn &middot; spatial shape-attn</b> (mesh normals); 40 objs, EMA@2500 &nbsp;|&nbsp; grouped by property</p></header>
+<h2>Geometry — shape consistency (13)</h2>
+<div class=grid>
+<figure class=card><figcaption>2d0701a19992</figcaption><video src="cmp_shape_attn/2d0701a19992.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>33bd85b5b24b</figcaption><video src="cmp_shape_attn/33bd85b5b24b.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>36a33548949a</figcaption><video src="cmp_shape_attn/36a33548949a.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>329b630700cf</figcaption><video src="cmp_shape_attn/329b630700cf.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>1646ade065cc</figcaption><video src="cmp_shape_attn/1646ade065cc.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>02721a2abe0e</figcaption><video src="cmp_shape_attn/02721a2abe0e.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>2932fca2b6bf</figcaption><video src="cmp_shape_attn/2932fca2b6bf.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>3279369cb5a0</figcaption><video src="cmp_shape_attn/3279369cb5a0.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>21154183a9b4</figcaption><video src="cmp_shape_attn/21154183a9b4.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>b2a9701db8b8</figcaption><video src="cmp_shape_attn/b2a9701db8b8.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>d0d43e2a2943</figcaption><video src="cmp_shape_attn/d0d43e2a2943.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0c5d13b5a1ba</figcaption><video src="cmp_shape_attn/0c5d13b5a1ba.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0a7369afec3e</figcaption><video src="cmp_shape_attn/0a7369afec3e.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+</div>
+<h2>Rotation (4)</h2>
+<div class=grid>
+<figure class=card><figcaption>256e92c5fa13</figcaption><video src="cmp_shape_attn/256e92c5fa13.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>238eaf4c3a2b</figcaption><video src="cmp_shape_attn/238eaf4c3a2b.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0c5d13b5a1ba</figcaption><video src="cmp_shape_attn/0c5d13b5a1ba.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>6569cdd64e10</figcaption><video src="cmp_shape_attn/6569cdd64e10.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+</div>
+<h2>Other objects (24)</h2>
+<div class=grid>
+<figure class=card><figcaption>00b9f1343596</figcaption><video src="cmp_shape_attn/00b9f1343596.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>00e7a6daedd2</figcaption><video src="cmp_shape_attn/00e7a6daedd2.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>01051d982719</figcaption><video src="cmp_shape_attn/01051d982719.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>01bd7226a801</figcaption><video src="cmp_shape_attn/01bd7226a801.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>01fa8487749d</figcaption><video src="cmp_shape_attn/01fa8487749d.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>045b22e7c1c2</figcaption><video src="cmp_shape_attn/045b22e7c1c2.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>064d35c29ddc</figcaption><video src="cmp_shape_attn/064d35c29ddc.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>075da77f5589</figcaption><video src="cmp_shape_attn/075da77f5589.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>088687e4034a</figcaption><video src="cmp_shape_attn/088687e4034a.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>09148d8bdff4</figcaption><video src="cmp_shape_attn/09148d8bdff4.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0a4604dad8da</figcaption><video src="cmp_shape_attn/0a4604dad8da.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0b649b76d871</figcaption><video src="cmp_shape_attn/0b649b76d871.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0b7ec4c4e35b</figcaption><video src="cmp_shape_attn/0b7ec4c4e35b.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0b871ded46ec</figcaption><video src="cmp_shape_attn/0b871ded46ec.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0b9df8b7d0db</figcaption><video src="cmp_shape_attn/0b9df8b7d0db.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0c7abbb8b0e3</figcaption><video src="cmp_shape_attn/0c7abbb8b0e3.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0e28b645254b</figcaption><video src="cmp_shape_attn/0e28b645254b.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>0f142eaa4ab9</figcaption><video src="cmp_shape_attn/0f142eaa4ab9.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>117fe1c12ffe</figcaption><video src="cmp_shape_attn/117fe1c12ffe.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>147255b123c4</figcaption><video src="cmp_shape_attn/147255b123c4.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>16f1c7270397</figcaption><video src="cmp_shape_attn/16f1c7270397.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>1cd64f420831</figcaption><video src="cmp_shape_attn/1cd64f420831.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>2ed510f819b7</figcaption><video src="cmp_shape_attn/2ed510f819b7.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+<figure class=card><figcaption>2f98af6aeee2</figcaption><video src="cmp_shape_attn/2f98af6aeee2.mp4" autoplay loop muted playsinline preload=metadata></video></figure>
+</div>
+</html>
