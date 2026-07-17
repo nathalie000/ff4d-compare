@@ -10,13 +10,18 @@ li{margin:6px 0}</style>
 <li><a href="cmp_mesh.html">Geometry comparison</a> — grouped: shape-consistency / rotation / other</li>
 <li><a href="cmp_app.html">Appearance comparison</a> — grouped: texture-consistency / rotation / other</li>
 <li><a href="cmp_wild.html">In-the-wild comparison</a> — object-centric + full-video groups</li>
-<li><a href="cmp_wild_16.html">In-the-wild 16-frame (smooth sampling)</a> — object-centric + full-video groups</li>
 </ul>
-<h2>Smooth-8 (trained frame count) — Ours vs Per-frame SAM-3D</h2>
+<h2>Smooth sampling — Ours vs Per-frame SAM-3D</h2>
+<p style="color:#aaa;font-size:13px;margin:0 0 6px">16-frame (smooth video) vs smooth-8 (center 8 = trained frame count)</p>
 <ul>
-<li><a href="cmp_smooth_mesh.html">Synthetic — Geometry (mesh)</a> — vs per-frame finetuned + original ckpt (80 objs)</li>
-<li><a href="cmp_smooth_app.html">Synthetic — Appearance</a> — vs per-frame finetuned + original ckpt (80 objs)</li>
-<li><a href="cmp_wild_smooth8.html">In-the-wild</a> — object-centric + full-video groups</li>
+<li><b>16-frame:</b>
+  <a href="cmp_16_mesh.html">Synthetic geometry</a> &middot;
+  <a href="cmp_16_app.html">Synthetic appearance</a> &middot;
+  <a href="cmp_wild_16.html">In-the-wild</a></li>
+<li><b>smooth-8 (trained frame count):</b>
+  <a href="cmp_smooth_mesh.html">Synthetic geometry</a> &middot;
+  <a href="cmp_smooth_app.html">Synthetic appearance</a> &middot;
+  <a href="cmp_wild_smooth8.html">In-the-wild</a></li>
 </ul>
 <h2>Ablations (geometry, A-vs-B, 40 objs)</h2>
 <ul>
