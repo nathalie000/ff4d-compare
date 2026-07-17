@@ -14,7 +14,7 @@ video{width:100%;display:block;background:#000}
 button#toggleAll{margin-top:8px;padding:5px 12px;font-size:13px;background:#2a2a2a;color:#eee;
 border:1px solid #444;border-radius:6px;cursor:pointer} button#toggleAll:hover{background:#333}
 </style>
-<header><h1>Synthetic smooth-8 — Geometry (mesh), ours vs per-frame SAM-3D (80 objs)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>Ours &middot; Per-frame SAM-3D</b> (mesh normals, cond-view + orbit) &nbsp;|&nbsp; center-8 of the 16-frame windows (trained frame count)</p>
+<header><h1>Synthetic smooth-8 — Geometry (mesh), ours vs per-frame SAM-3D (80 objs)</h1><p><a href="index.html">&larr; all evals</a> &nbsp;|&nbsp; rows: <b>Ours &middot; Per-frame SAM-3D</b> (mesh normals, cond-view + orbit) &nbsp;|&nbsp; center-8 of the 16-frame windows (trained frame count) &nbsp;|&nbsp; grouped by property; ft = finetuned ckpt, orig = original ckpt</p>
 <button id=toggleAll onclick="toggleAll()">&#9208; Pause all</button></header>
 <script>
 function toggleAll(){
@@ -24,26 +24,46 @@ function toggleAll(){
   b.innerHTML=anyPlaying?'&#9654; Play all':'&#9208; Pause all';
 }
 </script>
-<h2>vs per-frame SAM-3D (finetuned ckpt) (80)</h2>
+<h2>vs per-frame (finetuned ckpt) — Shape consistency (13)</h2>
+<div class=grid>
+<figure class=card><figcaption>ft_2d0701a19992</figcaption><video src="cmp_smooth_mesh/ft_2d0701a19992.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_33bd85b5b24b</figcaption><video src="cmp_smooth_mesh/ft_33bd85b5b24b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_36a33548949a</figcaption><video src="cmp_smooth_mesh/ft_36a33548949a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_329b630700cf</figcaption><video src="cmp_smooth_mesh/ft_329b630700cf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_1646ade065cc</figcaption><video src="cmp_smooth_mesh/ft_1646ade065cc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_02721a2abe0e</figcaption><video src="cmp_smooth_mesh/ft_02721a2abe0e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_2932fca2b6bf</figcaption><video src="cmp_smooth_mesh/ft_2932fca2b6bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_3279369cb5a0</figcaption><video src="cmp_smooth_mesh/ft_3279369cb5a0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_21154183a9b4</figcaption><video src="cmp_smooth_mesh/ft_21154183a9b4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_b2a9701db8b8</figcaption><video src="cmp_smooth_mesh/ft_b2a9701db8b8.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_d0d43e2a2943</figcaption><video src="cmp_smooth_mesh/ft_d0d43e2a2943.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/ft_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_0a7369afec3e</figcaption><video src="cmp_smooth_mesh/ft_0a7369afec3e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+</div>
+<h2>vs per-frame (finetuned ckpt) — Rotation (4)</h2>
+<div class=grid>
+<figure class=card><figcaption>ft_256e92c5fa13</figcaption><video src="cmp_smooth_mesh/ft_256e92c5fa13.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_238eaf4c3a2b</figcaption><video src="cmp_smooth_mesh/ft_238eaf4c3a2b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/ft_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>ft_6569cdd64e10</figcaption><video src="cmp_smooth_mesh/ft_6569cdd64e10.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+</div>
+<h2>vs per-frame (finetuned ckpt) — Other objects (64)</h2>
 <div class=grid>
 <figure class=card><figcaption>ft_00b9f1343596</figcaption><video src="cmp_smooth_mesh/ft_00b9f1343596.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_00e7a6daedd2</figcaption><video src="cmp_smooth_mesh/ft_00e7a6daedd2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_01051d982719</figcaption><video src="cmp_smooth_mesh/ft_01051d982719.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_01bd7226a801</figcaption><video src="cmp_smooth_mesh/ft_01bd7226a801.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_01fa8487749d</figcaption><video src="cmp_smooth_mesh/ft_01fa8487749d.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_02721a2abe0e</figcaption><video src="cmp_smooth_mesh/ft_02721a2abe0e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_045b22e7c1c2</figcaption><video src="cmp_smooth_mesh/ft_045b22e7c1c2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_064d35c29ddc</figcaption><video src="cmp_smooth_mesh/ft_064d35c29ddc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_075da77f5589</figcaption><video src="cmp_smooth_mesh/ft_075da77f5589.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_088687e4034a</figcaption><video src="cmp_smooth_mesh/ft_088687e4034a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_09148d8bdff4</figcaption><video src="cmp_smooth_mesh/ft_09148d8bdff4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0a4604dad8da</figcaption><video src="cmp_smooth_mesh/ft_0a4604dad8da.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_0a7369afec3e</figcaption><video src="cmp_smooth_mesh/ft_0a7369afec3e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0b649b76d871</figcaption><video src="cmp_smooth_mesh/ft_0b649b76d871.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0b7ec4c4e35b</figcaption><video src="cmp_smooth_mesh/ft_0b7ec4c4e35b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0b871ded46ec</figcaption><video src="cmp_smooth_mesh/ft_0b871ded46ec.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0b9df8b7d0db</figcaption><video src="cmp_smooth_mesh/ft_0b9df8b7d0db.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/ft_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0c7abbb8b0e3</figcaption><video src="cmp_smooth_mesh/ft_0c7abbb8b0e3.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0e28b645254b</figcaption><video src="cmp_smooth_mesh/ft_0e28b645254b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_0f142eaa4ab9</figcaption><video src="cmp_smooth_mesh/ft_0f142eaa4ab9.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
@@ -53,7 +73,6 @@ function toggleAll(){
 <figure class=card><figcaption>ft_1322ec88c421</figcaption><video src="cmp_smooth_mesh/ft_1322ec88c421.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_1398503ac9c5</figcaption><video src="cmp_smooth_mesh/ft_1398503ac9c5.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_147255b123c4</figcaption><video src="cmp_smooth_mesh/ft_147255b123c4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_1646ade065cc</figcaption><video src="cmp_smooth_mesh/ft_1646ade065cc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_1651f10085fb</figcaption><video src="cmp_smooth_mesh/ft_1651f10085fb.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_1697d86e7a2f</figcaption><video src="cmp_smooth_mesh/ft_1697d86e7a2f.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_16f1c7270397</figcaption><video src="cmp_smooth_mesh/ft_16f1c7270397.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
@@ -66,67 +85,75 @@ function toggleAll(){
 <figure class=card><figcaption>ft_1f098a7cc274</figcaption><video src="cmp_smooth_mesh/ft_1f098a7cc274.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2011f20f7a7e</figcaption><video src="cmp_smooth_mesh/ft_2011f20f7a7e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2066afa87c72</figcaption><video src="cmp_smooth_mesh/ft_2066afa87c72.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_21154183a9b4</figcaption><video src="cmp_smooth_mesh/ft_21154183a9b4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_21507e49b8f3</figcaption><video src="cmp_smooth_mesh/ft_21507e49b8f3.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_21c898fa071b</figcaption><video src="cmp_smooth_mesh/ft_21c898fa071b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_238eaf4c3a2b</figcaption><video src="cmp_smooth_mesh/ft_238eaf4c3a2b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_25015f5f3ac6</figcaption><video src="cmp_smooth_mesh/ft_25015f5f3ac6.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_256e92c5fa13</figcaption><video src="cmp_smooth_mesh/ft_256e92c5fa13.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2611cb5fc0e0</figcaption><video src="cmp_smooth_mesh/ft_2611cb5fc0e0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2691fa718007</figcaption><video src="cmp_smooth_mesh/ft_2691fa718007.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_2932fca2b6bf</figcaption><video src="cmp_smooth_mesh/ft_2932fca2b6bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2b75f50d6808</figcaption><video src="cmp_smooth_mesh/ft_2b75f50d6808.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_2d0701a19992</figcaption><video src="cmp_smooth_mesh/ft_2d0701a19992.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2ed510f819b7</figcaption><video src="cmp_smooth_mesh/ft_2ed510f819b7.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2efd52521550</figcaption><video src="cmp_smooth_mesh/ft_2efd52521550.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_2f98af6aeee2</figcaption><video src="cmp_smooth_mesh/ft_2f98af6aeee2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_3279369cb5a0</figcaption><video src="cmp_smooth_mesh/ft_3279369cb5a0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_329b630700cf</figcaption><video src="cmp_smooth_mesh/ft_329b630700cf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_32f1d70cbdfa</figcaption><video src="cmp_smooth_mesh/ft_32f1d70cbdfa.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_330015cf2cca</figcaption><video src="cmp_smooth_mesh/ft_330015cf2cca.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_33bd85b5b24b</figcaption><video src="cmp_smooth_mesh/ft_33bd85b5b24b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_34fe9318855d</figcaption><video src="cmp_smooth_mesh/ft_34fe9318855d.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_35689c8c52d5</figcaption><video src="cmp_smooth_mesh/ft_35689c8c52d5.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_36a33548949a</figcaption><video src="cmp_smooth_mesh/ft_36a33548949a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_47e7184b1671</figcaption><video src="cmp_smooth_mesh/ft_47e7184b1671.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_5f144ff37340</figcaption><video src="cmp_smooth_mesh/ft_5f144ff37340.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_5ff228693ab0</figcaption><video src="cmp_smooth_mesh/ft_5ff228693ab0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_604e591e0d61</figcaption><video src="cmp_smooth_mesh/ft_604e591e0d61.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_6569cdd64e10</figcaption><video src="cmp_smooth_mesh/ft_6569cdd64e10.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_66b977817f6a</figcaption><video src="cmp_smooth_mesh/ft_66b977817f6a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_828017e697e6</figcaption><video src="cmp_smooth_mesh/ft_828017e697e6.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_9cda2dc67b5c</figcaption><video src="cmp_smooth_mesh/ft_9cda2dc67b5c.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_b1a2f4100864</figcaption><video src="cmp_smooth_mesh/ft_b1a2f4100864.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_b2a9701db8b8</figcaption><video src="cmp_smooth_mesh/ft_b2a9701db8b8.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_b3139fdc5465</figcaption><video src="cmp_smooth_mesh/ft_b3139fdc5465.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_bca5350dd548</figcaption><video src="cmp_smooth_mesh/ft_bca5350dd548.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_bff251cf0037</figcaption><video src="cmp_smooth_mesh/ft_bff251cf0037.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>ft_d0d43e2a2943</figcaption><video src="cmp_smooth_mesh/ft_d0d43e2a2943.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_d3b7ce8de999</figcaption><video src="cmp_smooth_mesh/ft_d3b7ce8de999.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_d65a6d1e87bf</figcaption><video src="cmp_smooth_mesh/ft_d65a6d1e87bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_f819d7295500</figcaption><video src="cmp_smooth_mesh/ft_f819d7295500.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>ft_fa9f51beb763</figcaption><video src="cmp_smooth_mesh/ft_fa9f51beb763.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 </div>
-<h2>vs per-frame SAM-3D (original ckpt) (80)</h2>
+<h2>vs per-frame (original ckpt) — Shape consistency (13)</h2>
+<div class=grid>
+<figure class=card><figcaption>orig_2d0701a19992</figcaption><video src="cmp_smooth_mesh/orig_2d0701a19992.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_33bd85b5b24b</figcaption><video src="cmp_smooth_mesh/orig_33bd85b5b24b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_36a33548949a</figcaption><video src="cmp_smooth_mesh/orig_36a33548949a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_329b630700cf</figcaption><video src="cmp_smooth_mesh/orig_329b630700cf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_1646ade065cc</figcaption><video src="cmp_smooth_mesh/orig_1646ade065cc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_02721a2abe0e</figcaption><video src="cmp_smooth_mesh/orig_02721a2abe0e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_2932fca2b6bf</figcaption><video src="cmp_smooth_mesh/orig_2932fca2b6bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_3279369cb5a0</figcaption><video src="cmp_smooth_mesh/orig_3279369cb5a0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_21154183a9b4</figcaption><video src="cmp_smooth_mesh/orig_21154183a9b4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_b2a9701db8b8</figcaption><video src="cmp_smooth_mesh/orig_b2a9701db8b8.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_d0d43e2a2943</figcaption><video src="cmp_smooth_mesh/orig_d0d43e2a2943.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/orig_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_0a7369afec3e</figcaption><video src="cmp_smooth_mesh/orig_0a7369afec3e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+</div>
+<h2>vs per-frame (original ckpt) — Rotation (4)</h2>
+<div class=grid>
+<figure class=card><figcaption>orig_256e92c5fa13</figcaption><video src="cmp_smooth_mesh/orig_256e92c5fa13.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_238eaf4c3a2b</figcaption><video src="cmp_smooth_mesh/orig_238eaf4c3a2b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/orig_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+<figure class=card><figcaption>orig_6569cdd64e10</figcaption><video src="cmp_smooth_mesh/orig_6569cdd64e10.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
+</div>
+<h2>vs per-frame (original ckpt) — Other objects (64)</h2>
 <div class=grid>
 <figure class=card><figcaption>orig_00b9f1343596</figcaption><video src="cmp_smooth_mesh/orig_00b9f1343596.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_00e7a6daedd2</figcaption><video src="cmp_smooth_mesh/orig_00e7a6daedd2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_01051d982719</figcaption><video src="cmp_smooth_mesh/orig_01051d982719.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_01bd7226a801</figcaption><video src="cmp_smooth_mesh/orig_01bd7226a801.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_01fa8487749d</figcaption><video src="cmp_smooth_mesh/orig_01fa8487749d.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_02721a2abe0e</figcaption><video src="cmp_smooth_mesh/orig_02721a2abe0e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_045b22e7c1c2</figcaption><video src="cmp_smooth_mesh/orig_045b22e7c1c2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_064d35c29ddc</figcaption><video src="cmp_smooth_mesh/orig_064d35c29ddc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_075da77f5589</figcaption><video src="cmp_smooth_mesh/orig_075da77f5589.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_088687e4034a</figcaption><video src="cmp_smooth_mesh/orig_088687e4034a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_09148d8bdff4</figcaption><video src="cmp_smooth_mesh/orig_09148d8bdff4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0a4604dad8da</figcaption><video src="cmp_smooth_mesh/orig_0a4604dad8da.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_0a7369afec3e</figcaption><video src="cmp_smooth_mesh/orig_0a7369afec3e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0b649b76d871</figcaption><video src="cmp_smooth_mesh/orig_0b649b76d871.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0b7ec4c4e35b</figcaption><video src="cmp_smooth_mesh/orig_0b7ec4c4e35b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0b871ded46ec</figcaption><video src="cmp_smooth_mesh/orig_0b871ded46ec.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0b9df8b7d0db</figcaption><video src="cmp_smooth_mesh/orig_0b9df8b7d0db.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_0c5d13b5a1ba</figcaption><video src="cmp_smooth_mesh/orig_0c5d13b5a1ba.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0c7abbb8b0e3</figcaption><video src="cmp_smooth_mesh/orig_0c7abbb8b0e3.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0e28b645254b</figcaption><video src="cmp_smooth_mesh/orig_0e28b645254b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_0f142eaa4ab9</figcaption><video src="cmp_smooth_mesh/orig_0f142eaa4ab9.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
@@ -136,7 +163,6 @@ function toggleAll(){
 <figure class=card><figcaption>orig_1322ec88c421</figcaption><video src="cmp_smooth_mesh/orig_1322ec88c421.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_1398503ac9c5</figcaption><video src="cmp_smooth_mesh/orig_1398503ac9c5.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_147255b123c4</figcaption><video src="cmp_smooth_mesh/orig_147255b123c4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_1646ade065cc</figcaption><video src="cmp_smooth_mesh/orig_1646ade065cc.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_1651f10085fb</figcaption><video src="cmp_smooth_mesh/orig_1651f10085fb.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_1697d86e7a2f</figcaption><video src="cmp_smooth_mesh/orig_1697d86e7a2f.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_16f1c7270397</figcaption><video src="cmp_smooth_mesh/orig_16f1c7270397.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
@@ -149,42 +175,30 @@ function toggleAll(){
 <figure class=card><figcaption>orig_1f098a7cc274</figcaption><video src="cmp_smooth_mesh/orig_1f098a7cc274.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2011f20f7a7e</figcaption><video src="cmp_smooth_mesh/orig_2011f20f7a7e.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2066afa87c72</figcaption><video src="cmp_smooth_mesh/orig_2066afa87c72.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_21154183a9b4</figcaption><video src="cmp_smooth_mesh/orig_21154183a9b4.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_21507e49b8f3</figcaption><video src="cmp_smooth_mesh/orig_21507e49b8f3.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_21c898fa071b</figcaption><video src="cmp_smooth_mesh/orig_21c898fa071b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_238eaf4c3a2b</figcaption><video src="cmp_smooth_mesh/orig_238eaf4c3a2b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_25015f5f3ac6</figcaption><video src="cmp_smooth_mesh/orig_25015f5f3ac6.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_256e92c5fa13</figcaption><video src="cmp_smooth_mesh/orig_256e92c5fa13.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2611cb5fc0e0</figcaption><video src="cmp_smooth_mesh/orig_2611cb5fc0e0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2691fa718007</figcaption><video src="cmp_smooth_mesh/orig_2691fa718007.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_2932fca2b6bf</figcaption><video src="cmp_smooth_mesh/orig_2932fca2b6bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2b75f50d6808</figcaption><video src="cmp_smooth_mesh/orig_2b75f50d6808.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_2d0701a19992</figcaption><video src="cmp_smooth_mesh/orig_2d0701a19992.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2ed510f819b7</figcaption><video src="cmp_smooth_mesh/orig_2ed510f819b7.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2efd52521550</figcaption><video src="cmp_smooth_mesh/orig_2efd52521550.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_2f98af6aeee2</figcaption><video src="cmp_smooth_mesh/orig_2f98af6aeee2.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_3279369cb5a0</figcaption><video src="cmp_smooth_mesh/orig_3279369cb5a0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_329b630700cf</figcaption><video src="cmp_smooth_mesh/orig_329b630700cf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_32f1d70cbdfa</figcaption><video src="cmp_smooth_mesh/orig_32f1d70cbdfa.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_330015cf2cca</figcaption><video src="cmp_smooth_mesh/orig_330015cf2cca.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_33bd85b5b24b</figcaption><video src="cmp_smooth_mesh/orig_33bd85b5b24b.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_34fe9318855d</figcaption><video src="cmp_smooth_mesh/orig_34fe9318855d.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_35689c8c52d5</figcaption><video src="cmp_smooth_mesh/orig_35689c8c52d5.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_36a33548949a</figcaption><video src="cmp_smooth_mesh/orig_36a33548949a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_47e7184b1671</figcaption><video src="cmp_smooth_mesh/orig_47e7184b1671.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_5f144ff37340</figcaption><video src="cmp_smooth_mesh/orig_5f144ff37340.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_5ff228693ab0</figcaption><video src="cmp_smooth_mesh/orig_5ff228693ab0.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_604e591e0d61</figcaption><video src="cmp_smooth_mesh/orig_604e591e0d61.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_6569cdd64e10</figcaption><video src="cmp_smooth_mesh/orig_6569cdd64e10.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_66b977817f6a</figcaption><video src="cmp_smooth_mesh/orig_66b977817f6a.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_828017e697e6</figcaption><video src="cmp_smooth_mesh/orig_828017e697e6.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_9cda2dc67b5c</figcaption><video src="cmp_smooth_mesh/orig_9cda2dc67b5c.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_b1a2f4100864</figcaption><video src="cmp_smooth_mesh/orig_b1a2f4100864.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_b2a9701db8b8</figcaption><video src="cmp_smooth_mesh/orig_b2a9701db8b8.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_b3139fdc5465</figcaption><video src="cmp_smooth_mesh/orig_b3139fdc5465.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_bca5350dd548</figcaption><video src="cmp_smooth_mesh/orig_bca5350dd548.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_bff251cf0037</figcaption><video src="cmp_smooth_mesh/orig_bff251cf0037.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
-<figure class=card><figcaption>orig_d0d43e2a2943</figcaption><video src="cmp_smooth_mesh/orig_d0d43e2a2943.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_d3b7ce8de999</figcaption><video src="cmp_smooth_mesh/orig_d3b7ce8de999.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_d65a6d1e87bf</figcaption><video src="cmp_smooth_mesh/orig_d65a6d1e87bf.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
 <figure class=card><figcaption>orig_f819d7295500</figcaption><video src="cmp_smooth_mesh/orig_f819d7295500.mp4" autoplay loop muted playsinline controls preload=metadata></video></figure>
