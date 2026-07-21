@@ -6,42 +6,44 @@ margin:0;padding:24px}h1{font-size:19px}h2{font-size:15px;color:#bbb;margin-top:
 .e{margin:18px 0}.e h3{font-size:13px;color:#9ab;margin:4px 0}video{max-width:100%;display:block}
 .cap{font-size:12px;color:#888;margin:2px 0}</style>
 <h1>Trained WITH vs WITHOUT lift4d — in-the-wild, 32 frames, full videos</h1><p class=cap>Geometry: occupancy renders (cond view + aligned canonical). Texture: gaussian + mesh renders, shared geometry.</p>
+<p><button onclick="document.querySelectorAll('video').forEach(v=>v.play())">&#9654; play all</button>
+<button onclick="document.querySelectorAll('video').forEach(v=>v.pause())">&#10074;&#10074; pause all</button></p>
 
 <h2>Geometry (occ) — syn4d+lift4d vs syn4d-only</h2>
 <div class=e><h3>bear</h3>
-<video src="g32_lift4d/geom_bear.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_bear.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>deer</h3>
-<video src="g32_lift4d/geom_deer.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_deer.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>elephant</h3>
-<video src="g32_lift4d/geom_elephant.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_elephant.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>fox</h3>
-<video src="g32_lift4d/geom_fox.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_fox.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>mose_cat</h3>
-<video src="g32_lift4d/geom_mose_cat.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_mose_cat.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>tiger</h3>
-<video src="g32_lift4d/geom_tiger.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/geom_tiger.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <h2>Texture (gaussian + mesh) — with-lift4d (T-A/T-B) vs without (m324-only, frozen)</h2>
 <div class=e><h3>bear</h3>
-<video src="g32_lift4d/tex_bear_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_bear_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>deer</h3>
-<video src="g32_lift4d/tex_deer_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_deer_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>elephant</h3>
-<video src="g32_lift4d/tex_elephant_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_elephant_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>fox</h3>
-<video src="g32_lift4d/tex_fox_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_fox_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>mose_cat</h3>
-<video src="g32_lift4d/tex_mose_cat_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_mose_cat_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
 <div class=e><h3>tiger</h3>
-<video src="g32_lift4d/tex_tiger_full.mp4" controls loop muted playsinline></video>
+<video src="g32_lift4d/tex_tiger_full.mp4" controls loop muted playsinline autoplay></video>
 </div>
