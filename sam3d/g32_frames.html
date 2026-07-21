@@ -9,6 +9,8 @@ margin:0;padding:24px}h1{font-size:19px}h2{font-size:15px;color:#bbb;margin-top:
 <p><button onclick="document.querySelectorAll('video').forEach(v=>v.play())">&#9654; play all</button>
 <button onclick="document.querySelectorAll('video').forEach(v=>v.pause())">&#10074;&#10074; pause all</button></p>
 
+<h2>Score graphs</h2>
+<p class=cap>Metrics vs test frame count (trained on 8f): ours vs per-frame SAM-3D, synthetic exp1</p><img src="g32_frames/scores_vs_frames.png" style="max-width:100%;background:#fff">
 <h2>In-the-wild</h2>
 <div class=e><h3>bear</h3>
 <video src="g32_frames/wild_bear.mp4" controls loop muted playsinline autoplay></video>

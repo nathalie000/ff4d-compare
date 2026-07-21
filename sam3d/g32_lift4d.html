@@ -9,6 +9,9 @@ margin:0;padding:24px}h1{font-size:19px}h2{font-size:15px;color:#bbb;margin-top:
 <p><button onclick="document.querySelectorAll('video').forEach(v=>v.play())">&#9654; play all</button>
 <button onclick="document.querySelectorAll('video').forEach(v=>v.pause())">&#10074;&#10074; pause all</button></p>
 
+<h2>Score graphs</h2>
+<p class=cap>Geometry — wild 32f layout jitter (lf_sl = WITH lift4d, lf_sy = WITHOUT)</p><img src="g32_lift4d/graph_table_jitter.png" style="max-width:100%;background:#fff">
+<p class=cap>Texture — oracle appearance (with-lift4d T-A/T-B vs no-lift4d rows; 8f protocol)</p><img src="g32_lift4d/graph_table_app.png" style="max-width:100%;background:#fff">
 <h2>Geometry (occ) — syn4d+lift4d vs syn4d-only</h2>
 <div class=e><h3>bear</h3>
 <video src="g32_lift4d/geom_bear.mp4" controls loop muted playsinline autoplay></video>
