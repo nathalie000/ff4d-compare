@@ -1,0 +1,12 @@
+<!doctype html><meta charset=utf-8><title>Overfitting check (train vs test)</title>
+<style>body{font-family:sans-serif;max-width:1400px;margin:20px auto;padding:0 12px}img{width:100%}pre{background:#f6f6f6;padding:12px;overflow:auto}</style>
+<h1>Overfitting check &mdash; geometry score, train vs test</h1>
+<img src='overfit/overfit_curve.png'><h3>Gap table (test &minus; train)</h3><pre>
+| method | CD-4D train | CD-4D test | Δ | CD-3D train | CD-3D test | Δ |
+|---|---|---|---|---|---|---|
+| Full x-frame | 0.3280 | 0.2686 | -0.0594 | 0.0922 | 0.0862 | -0.0060 |
+| No-xframe layout | 0.2661 | 0.2035 | -0.0626 | 0.0969 | 0.0842 | -0.0127 |
+| Pointmap-blind shape | 0.2071 | 0.1525 | -0.0547 | 0.1082 | 0.0926 | -0.0156 |
+| SAM-3D tuned | 0.2356 | 0.1755 | -0.0600 | 0.1140 | 0.0898 | -0.0243 |
+| SAM-3D released | 0.2038 | 0.1841 | -0.0197 | 0.1203 | 0.1014 | -0.0189 |
+</pre>
