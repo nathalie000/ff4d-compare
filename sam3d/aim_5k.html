@@ -1,0 +1,22 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1"><title>Animal-in-Motion — full-corpus 5k</title>
+<style>:root{color-scheme:dark}body{font-family:system-ui,sans-serif;background:#111;color:#eee;margin:0;padding:26px}
+h1{font-size:20px;margin:0 0 4px}.sub{color:#9aa;font-size:13px;margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{background:#1c2333;border:1px solid #2c3a55;border-radius:6px;padding:4px 10px;font-size:12.5px}
+.chip b{font-family:ui-monospace,monospace;color:#9fd06a}
+h2{font-size:15px;border-bottom:1px solid #333;padding-bottom:4px;margin:26px 0 10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.card{background:#191c22;border:1px solid #2a2e36;border-radius:8px;overflow:hidden}
+.card video{width:100%;display:block;background:#000}
+.meta{display:flex;justify-content:space-between;padding:7px 10px;font-family:ui-monospace,monospace;font-size:12px}
+.sid{color:#9aa;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sc{color:#9fd06a;white-space:nowrap}
+.note{color:#9aa;font-size:12.5px;margin-top:24px;border-top:1px solid #333;padding-top:8px}</style>
+<h1>Animal-in-Motion gallery — full-corpus 5k ckpt</h1>
+<div class=sub>5 wild sequences · input view · full predicted layout, NO alignment · official photometric kernel</div>
+<div class=chips><span class=chip>app-EPE <b>0.0108</b></span><span class=chip>LPIPS <b>0.286</b></span>
+<span class=chip>SSIM <b>0.712</b></span><span class=chip>CLIP <b>0.918</b></span></div>
+<h2>Track overlays — pred (left, red tracks) vs input (right, green)</h2><div class=grid><div class="card"><video controls muted loop preload="metadata" src="aim_5k/bear_sbs.mp4"></video><div class="meta"><span class="sid">bear</span><span class="sc">EPE 0.0144 LPIPS 0.262</span></div></div><div class="card"><video controls muted loop preload="metadata" src="aim_5k/deer_sbs.mp4"></video><div class="meta"><span class="sid">deer</span><span class="sc">EPE 0.0064 LPIPS 0.168</span></div></div><div class="card"><video controls muted loop preload="metadata" src="aim_5k/elephant_sbs.mp4"></video><div class="meta"><span class="sid">elephant</span><span class="sc">EPE 0.0032 LPIPS 0.292</span></div></div><div class="card"><video controls muted loop preload="metadata" src="aim_5k/mose_cat_sbs.mp4"></video><div class="meta"><span class="sid">mose_cat</span><span class="sc">EPE 0.0178 LPIPS 0.309</span></div></div><div class="card"><video controls muted loop preload="metadata" src="aim_5k/tiger_sbs.mp4"></video><div class="meta"><span class="sid">tiger</span><span class="sc">EPE 0.0120 LPIPS 0.399</span></div></div></div>
+<h2>Registration blends</h2><div class=grid><div class="card"><video controls muted loop preload="metadata" src="aim_5k/overlay_bear.mp4"></video><div class="meta"><span class="sid">bear · input | 50% blend</span><span class="sc">registration</span></div></div><div class="card"><video controls muted loop preload="metadata" src="aim_5k/overlay_mose_cat.mp4"></video><div class="meta"><span class="sid">mose_cat · input | 50% blend</span><span class="sc">registration</span></div></div></div>
+<div class=note>Predicted layout rendered as-is (no ICP/scale fit). Known ~15% oversize is inherited from base
+SAM-3D's feed-forward scale (see repo debug/aim_oversize/FINDINGS.md); training reduces it.</div></html>
