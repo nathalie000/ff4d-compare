@@ -18,7 +18,7 @@ input{accent-color:#7aa2ff}
 .tile video{width:100%;max-width:680px;display:block;background:#000;border:1px solid #2a2a2a;border-radius:4px}
 .cap{font-size:15px;color:#ddd;margin-top:3px;display:flex;justify-content:space-between;gap:10px}
 .cap .m{color:#7aa2ff;font-weight:700}
-.score{position:absolute;right:6px;top:62%;transform:translateY(-50%);
+.score{position:absolute;left:6px;top:62%;transform:translateY(-50%);
   background:rgba(20,20,20,.82);border:1px solid #444;border-radius:6px;
   padding:4px 8px;font:600 13px/1.5 ui-monospace,monospace;color:#ffd479;
   pointer-events:none;white-space:pre-line;text-align:right}
@@ -32,6 +32,7 @@ input{accent-color:#7aa2ff}
   <span><b>Methods:</b> <span id=meths></span></span>
   <span><b>Rendering:</b> <span id=types></span></span>
   <span><b>Speed:</b> <span id=speeds></span></span>
+  <span><button id=pp style="font-size:14px;padding:3px 12px;cursor:pointer;background:#26304a;color:#dfe6ff;border:1px solid #44507a;border-radius:5px">&#10074;&#10074; pause</button></span>
   <span class=count id=count></span>
 </div>
 </header>
@@ -84,10 +85,24 @@ function build(){
 }
 const io=new IntersectionObserver(es=>{for(const e of es){
   const v=e.target;
-  if(e.isIntersecting){ if(!v.src){v.src=v.dataset.src;} v.playbackRate=state.rate; v.play().catch(()=>{}); }
+  if(e.isIntersecting){ if(!v.src){v.src=v.dataset.src;} v.playbackRate=state.rate;
+    if(state.playing) v.play().catch(()=>{}); }
   else v.pause();
 }},{rootMargin:"200px"});
-function observe(){document.querySelectorAll("video[data-src]").forEach(v=>io.observe(v));}
+function observe(){document.querySelectorAll("video[data-src]").forEach(v=>{
+  io.observe(v);
+  v.onclick=()=>{ v.paused ? v.play().catch(()=>{}) : v.pause(); };
+});}
+state.playing=true;
+document.getElementById("pp").onclick=()=>{
+  state.playing=!state.playing;
+  const b=document.getElementById("pp");
+  b.innerHTML=state.playing?"&#10074;&#10074; pause":"&#9654; play";
+  document.querySelectorAll("video").forEach(v=>{
+    if(state.playing){ if(!v.src&&v.dataset.src)v.src=v.dataset.src; v.play().catch(()=>{}); }
+    else v.pause();
+  });
+};
 function ctls(){
   const ms=document.getElementById("meths");
   for(const [k,n] of D.methods){
