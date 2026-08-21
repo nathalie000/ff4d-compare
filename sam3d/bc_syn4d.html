@@ -1,0 +1,119 @@
+<!doctype html><html lang=en><meta charset=utf-8>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<title>Baseline comparison — syn4d</title>
+<style>
+:root{color-scheme:dark}
+body{font-family:system-ui,sans-serif;background:#111;color:#eee;margin:0;padding:0}
+header{position:sticky;top:0;background:#181818;border-bottom:1px solid #333;padding:10px 16px;z-index:5}
+h1{font-size:18px;margin:0 0 8px}
+.ctl{display:flex;gap:18px;flex-wrap:wrap;align-items:center;font-size:14px}
+.ctl b{color:#9ab}
+label{cursor:pointer;user-select:none;margin-right:8px}
+input{accent-color:#7aa2ff}
+#grid{padding:12px 16px}
+.row{margin:0 0 22px}
+.sha{font:14px/1.6 ui-monospace,monospace;color:#8aa;margin-bottom:3px}
+.tiles{display:flex;gap:10px;overflow-x:auto}
+.tile{flex:0 0 auto;max-width:680px;position:relative}
+.tile video{width:100%;max-width:680px;display:block;background:#000;border:1px solid #2a2a2a;border-radius:4px}
+.cap{font-size:15px;color:#ddd;margin-top:3px;display:flex;justify-content:space-between;gap:10px}
+.cap .m{color:#7aa2ff;font-weight:700}
+.score{position:absolute;right:6px;top:62%;transform:translateY(-50%);
+  background:rgba(20,20,20,.82);border:1px solid #444;border-radius:6px;
+  padding:4px 8px;font:600 13px/1.5 ui-monospace,monospace;color:#ffd479;
+  pointer-events:none;white-space:pre-line;text-align:right}
+.na{display:flex;align-items:center;justify-content:center;color:#555;border:1px dashed #333;
+    border-radius:4px;min-height:120px;width:320px;font-size:14px}
+.count{color:#789;font-size:13px;margin-left:auto}
+</style>
+<header>
+<h1>Baseline comparison — syn4d <span style="color:#678;font-weight:400">(19 samples, 8f, cond-cam ring (no canonical columns))</span></h1>
+<div class=ctl>
+  <span><b>Methods:</b> <span id=meths></span></span>
+  <span><b>Rendering:</b> <span id=types></span></span>
+  <span><b>Speed:</b> <span id=speeds></span></span>
+  <span class=count id=count></span>
+</div>
+</header>
+<div id=grid></div>
+<script>
+const D = {"shas": ["syn4d_soviet_group_seq_000000_0_6a9c2e83", "syn4d_soviet_group_seq_000001_1_77ab62ea", "syn4d_soviet_group_seq_000002_2_ef080177", "syn4d_soviet_group_seq_000003_3_60ab9787", "syn4d_soviet_group_seq_000004_4_f1ce57e2", "syn4d_soviet_group_seq_000005_5_01a7a2b6", "syn4d_soviet_group_seq_000006_6_3d70a03e", "syn4d_soviet_group_seq_000007_7_64771dd9", "syn4d_soviet_group_seq_000008_0_7a65e1dd", "syn4d_soviet_group_seq_000009_1_8b072e74", "syn4d_soviet_group_seq_000010_2_bb7a4d13", "syn4d_soviet_group_seq_000011_3_07a54ba6", "syn4d_soviet_group_seq_000012_4_e4740430", "syn4d_soviet_group_seq_000013_5_a18578a6", "syn4d_soviet_group_seq_000014_6_0d322eea", "syn4d_soviet_group_seq_000015_7_1ff4be25", "syn4d_soviet_group_seq_000017_1_30916fd8", "syn4d_soviet_group_seq_000018_2_dd8d6b43", "syn4d_soviet_group_seq_000019_3_524ce447"], "methods": [["ours", "Ours"], ["perframe_tuned", "PF-tuned"], ["actionmesh", "ActionMesh"], ["m3t4", "M3T4"]], "types": [["geom_pc", "Point cloud"], ["geom_mesh", "Mesh"]], "metrics": {"syn4d_soviet_group_seq_000000_0_6a9c2e83": {"ours": {"cd3": 0.0304, "cd4": 0.0703}, "perframe_tuned": {"cd3": 0.0339, "cd4": 0.0737}, "actionmesh": {"cd3": 0.0727, "cd4": 1.0348}, "m3t4": {"cd3": 0.0765, "cd4": 0.5034}}, "syn4d_soviet_group_seq_000001_1_77ab62ea": {"ours": {"cd3": 0.0339, "cd4": 0.0518}, "perframe_tuned": {"cd3": 0.0396, "cd4": 0.0594}, "actionmesh": {"cd3": 0.1048, "cd4": 0.1245}, "m3t4": {"cd3": 0.0586, "cd4": 0.081}}, "syn4d_soviet_group_seq_000002_2_ef080177": {"ours": {"cd3": 0.0889, "cd4": 0.1027}, "perframe_tuned": {"cd3": 0.0871, "cd4": 0.0993}, "actionmesh": {"cd3": 0.0909, "cd4": 0.0942}, "m3t4": {"cd3": 0.0956, "cd4": 0.097}}, "syn4d_soviet_group_seq_000003_3_60ab9787": {"ours": {"cd3": 0.0369, "cd4": 0.0942}, "perframe_tuned": {"cd3": 0.0359, "cd4": 0.1554}, "actionmesh": {"cd3": 0.1271, "cd4": 0.2598}, "m3t4": {"cd3": 0.1114, "cd4": 0.1964}}, "syn4d_soviet_group_seq_000004_4_f1ce57e2": {"ours": {"cd3": 0.1639, "cd4": 0.1785}, "perframe_tuned": {"cd3": 0.1657, "cd4": 0.1786}, "actionmesh": {"cd3": 0.1512, "cd4": 0.1897}, "m3t4": {"cd3": 0.1437, "cd4": 0.1676}}, "syn4d_soviet_group_seq_000005_5_01a7a2b6": {"ours": {"cd3": 0.0379, "cd4": 0.0512}, "perframe_tuned": {"cd3": 0.0472, "cd4": 0.0602}, "actionmesh": {"cd3": 0.0855, "cd4": 0.1812}, "m3t4": {"cd3": 0.0582, "cd4": 0.0918}}, "syn4d_soviet_group_seq_000006_6_3d70a03e": {"ours": {"cd3": 0.0407, "cd4": 0.0449}, "perframe_tuned": {"cd3": 0.0436, "cd4": 0.054}, "actionmesh": {"cd3": 0.0594, "cd4": 0.0874}, "m3t4": {"cd3": 0.0575, "cd4": 0.0685}}, "syn4d_soviet_group_seq_000007_7_64771dd9": {"ours": {"cd3": 0.0321, "cd4": 0.0474}, "perframe_tuned": {"cd3": 0.0349, "cd4": 0.069}, "actionmesh": {"cd3": 0.093, "cd4": 0.19}, "m3t4": {"cd3": 0.0962, "cd4": 0.4359}}, "syn4d_soviet_group_seq_000008_0_7a65e1dd": {"ours": {"cd3": 0.0396, "cd4": 0.0647}, "perframe_tuned": {"cd3": 0.044, "cd4": 0.066}, "actionmesh": {"cd3": 0.0929, "cd4": 0.4277}, "m3t4": {"cd3": 0.0607, "cd4": 0.1673}}, "syn4d_soviet_group_seq_000009_1_8b072e74": {"ours": {"cd3": 0.0408, "cd4": 0.0497}, "perframe_tuned": {"cd3": 0.073, "cd4": 0.099}, "actionmesh": {"cd3": 0.069, "cd4": 0.1696}, "m3t4": {"cd3": 0.0605, "cd4": 0.1732}}, "syn4d_soviet_group_seq_000010_2_bb7a4d13": {"ours": {"cd3": 0.0804, "cd4": 0.1354}, "perframe_tuned": {"cd3": 0.1229, "cd4": 0.1935}, "actionmesh": {"cd3": 0.2647, "cd4": 0.326}, "m3t4": {"cd3": 0.1784, "cd4": 0.2574}}, "syn4d_soviet_group_seq_000011_3_07a54ba6": {"ours": {"cd3": 0.0483, "cd4": 0.0803}, "perframe_tuned": {"cd3": 0.0796, "cd4": 0.1238}, "actionmesh": {"cd3": 0.064, "cd4": 0.1077}, "m3t4": {"cd3": 0.0604, "cd4": 0.1273}}, "syn4d_soviet_group_seq_000012_4_e4740430": {"ours": {"cd3": 0.0677, "cd4": 0.0905}, "perframe_tuned": {"cd3": 0.0721, "cd4": 0.0982}, "actionmesh": {"cd3": 0.077, "cd4": 0.1018}, "m3t4": {"cd3": 0.1004, "cd4": 0.2201}}, "syn4d_soviet_group_seq_000013_5_a18578a6": {"ours": {"cd3": 0.0459, "cd4": 0.0544}, "actionmesh": {"cd3": 0.1106, "cd4": 0.89}, "m3t4": {"cd3": 0.0583, "cd4": 0.2337}}, "syn4d_soviet_group_seq_000014_6_0d322eea": {"ours": {"cd3": 0.0489, "cd4": 0.0777}, "perframe_tuned": {"cd3": 0.0603, "cd4": 0.0798}, "actionmesh": {"cd3": 0.0894, "cd4": 0.9384}, "m3t4": {"cd3": 0.1413, "cd4": 0.9079}}, "syn4d_soviet_group_seq_000015_7_1ff4be25": {"ours": {"cd3": 0.0443, "cd4": 0.0712}, "perframe_tuned": {"cd3": 0.0614, "cd4": 0.1753}, "actionmesh": {"cd3": 0.1487, "cd4": 0.6965}, "m3t4": {"cd3": 0.1177, "cd4": 0.3086}}, "syn4d_soviet_group_seq_000017_1_30916fd8": {"ours": {"cd3": 0.0397, "cd4": 0.0411}, "perframe_tuned": {"cd3": 0.0437, "cd4": 0.0473}, "actionmesh": {"cd3": 0.0427, "cd4": 0.067}}, "syn4d_soviet_group_seq_000018_2_dd8d6b43": {"ours": {"cd3": 0.0322, "cd4": 0.0474}, "perframe_tuned": {"cd3": 0.0323, "cd4": 0.0517}, "actionmesh": {"cd3": 0.0424, "cd4": 0.1034}, "m3t4": {"cd3": 0.0481, "cd4": 0.086}}, "syn4d_soviet_group_seq_000019_3_524ce447": {"ours": {"cd3": 0.0529, "cd4": 0.075}, "perframe_tuned": {"cd3": 0.0611, "cd4": 0.1287}, "actionmesh": {"cd3": 0.0984, "cd4": 0.1258}, "m3t4": {"cd3": 0.1095, "cd4": 0.1529}}}, "avail": {"ours": {"syn4d_soviet_group_seq_000000_0_6a9c2e83": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000001_1_77ab62ea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000002_2_ef080177": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000003_3_60ab9787": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000004_4_f1ce57e2": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000005_5_01a7a2b6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000006_6_3d70a03e": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000007_7_64771dd9": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000008_0_7a65e1dd": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000009_1_8b072e74": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000010_2_bb7a4d13": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000011_3_07a54ba6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000012_4_e4740430": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000013_5_a18578a6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000014_6_0d322eea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000015_7_1ff4be25": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000017_1_30916fd8": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000018_2_dd8d6b43": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000019_3_524ce447": ["geom_pc", "geom_mesh"]}, "perframe_tuned": {"syn4d_soviet_group_seq_000000_0_6a9c2e83": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000001_1_77ab62ea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000002_2_ef080177": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000003_3_60ab9787": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000004_4_f1ce57e2": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000005_5_01a7a2b6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000006_6_3d70a03e": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000007_7_64771dd9": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000008_0_7a65e1dd": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000009_1_8b072e74": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000010_2_bb7a4d13": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000011_3_07a54ba6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000012_4_e4740430": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000013_5_a18578a6": [], "syn4d_soviet_group_seq_000014_6_0d322eea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000015_7_1ff4be25": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000017_1_30916fd8": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000018_2_dd8d6b43": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000019_3_524ce447": ["geom_pc", "geom_mesh"]}, "actionmesh": {"syn4d_soviet_group_seq_000000_0_6a9c2e83": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000001_1_77ab62ea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000002_2_ef080177": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000003_3_60ab9787": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000004_4_f1ce57e2": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000005_5_01a7a2b6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000006_6_3d70a03e": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000007_7_64771dd9": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000008_0_7a65e1dd": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000009_1_8b072e74": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000010_2_bb7a4d13": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000011_3_07a54ba6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000012_4_e4740430": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000013_5_a18578a6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000014_6_0d322eea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000015_7_1ff4be25": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000017_1_30916fd8": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000018_2_dd8d6b43": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000019_3_524ce447": ["geom_pc", "geom_mesh"]}, "m3t4": {"syn4d_soviet_group_seq_000000_0_6a9c2e83": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000001_1_77ab62ea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000002_2_ef080177": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000003_3_60ab9787": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000004_4_f1ce57e2": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000005_5_01a7a2b6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000006_6_3d70a03e": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000007_7_64771dd9": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000008_0_7a65e1dd": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000009_1_8b072e74": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000010_2_bb7a4d13": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000011_3_07a54ba6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000012_4_e4740430": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000013_5_a18578a6": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000014_6_0d322eea": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000015_7_1ff4be25": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000017_1_30916fd8": [], "syn4d_soviet_group_seq_000018_2_dd8d6b43": ["geom_pc", "geom_mesh"], "syn4d_soviet_group_seq_000019_3_524ce447": ["geom_pc", "geom_mesh"]}}, "prefix": "bc_syn4d", "default_type": "geom_pc", "title": "syn4d", "subtitle": "19 samples, 8f, cond-cam ring (no canonical columns)"};
+const state = {methods:["ours","actionmesh","m3t4"], type:D.default_type, rate:1.0};
+const mname = Object.fromEntries(D.methods);
+function metric(sha, m){
+  const md = (D.metrics[sha]||{})[m]||{};
+  let s=[];
+  if (state.type.startsWith("geom")){
+    if(md.cd3!==undefined)s.push(`CD-3D ${md.cd3}`);
+    if(md.cd4!==undefined)s.push(`CD-4D ${md.cd4}`);
+  } else {
+    if(md.psnr!==undefined)s.push(`PSNR ${md.psnr}`);
+    if(md.epe!==undefined)s.push(`EPE ${md.epe}`);
+  }
+  return s;
+}
+function build(){
+  const g=document.getElementById("grid"); g.innerHTML="";
+  let shown=0;
+  for(const sha of D.shas){
+    const row=document.createElement("div"); row.className="row";
+    row.innerHTML=`<div class=sha>${sha}</div>`;
+    const tiles=document.createElement("div"); tiles.className="tiles";
+    let any=false;
+    for(const m of state.methods){
+      const t=document.createElement("div"); t.className="tile";
+      const sc=metric(sha,m);
+      if((D.avail[m][sha]||[]).includes(state.type)){
+        any=true;
+        t.innerHTML=`<video muted loop playsinline preload=none
+          data-src="${D.prefix}/${m}/${sha}/${state.type}.mp4"></video>
+          ${sc.length?`<div class=score>${sc.join("\n")}</div>`:""}
+          <div class=cap><span class=m>${mname[m]}</span><span>${sc.join(" · ")}</span></div>`;
+      } else {
+        t.innerHTML=`<div class=na>${mname[m]}: n/a</div>
+          <div class=cap><span class=m>${mname[m]}</span></div>`;
+      }
+      tiles.appendChild(t);
+    }
+    if(!any) continue;
+    shown++;
+    row.appendChild(tiles); g.appendChild(row);
+  }
+  document.getElementById("count").textContent=`${shown} samples`;
+  observe();
+}
+const io=new IntersectionObserver(es=>{for(const e of es){
+  const v=e.target;
+  if(e.isIntersecting){ if(!v.src){v.src=v.dataset.src;} v.playbackRate=state.rate; v.play().catch(()=>{}); }
+  else v.pause();
+}},{rootMargin:"200px"});
+function observe(){document.querySelectorAll("video[data-src]").forEach(v=>io.observe(v));}
+function ctls(){
+  const ms=document.getElementById("meths");
+  for(const [k,n] of D.methods){
+    const l=document.createElement("label");
+    l.innerHTML=`<input type=checkbox value=${k} ${state.methods.includes(k)?"checked":""}> ${n}`;
+    l.firstChild.onchange=e=>{
+      if(e.target.checked) state.methods=D.methods.map(x=>x[0]).filter(x=>x===k||state.methods.includes(x));
+      else state.methods=state.methods.filter(x=>x!==k);
+      build();};
+    ms.appendChild(l);
+  }
+  const sp=document.getElementById("speeds");
+  for(const r of [0.25,0.5,1,2]){
+    const l=document.createElement("label");
+    l.innerHTML=`<input type=radio name=spd value=${r} ${r===state.rate?"checked":""}> ${r}x`;
+    l.firstChild.onchange=()=>{state.rate=r;
+      document.querySelectorAll("video").forEach(v=>{v.playbackRate=r;});};
+    sp.appendChild(l);
+  }
+  const ts=document.getElementById("types");
+  for(const [k,n] of D.types){
+    const l=document.createElement("label");
+    l.innerHTML=`<input type=radio name=vt value=${k} ${k===state.type?"checked":""}> ${n}`;
+    l.firstChild.onchange=()=>{state.type=k;build();};
+    ts.appendChild(l);
+  }
+}
+ctls(); build();
+</script>
