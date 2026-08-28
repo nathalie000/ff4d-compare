@@ -17,7 +17,8 @@
  },
  {
   "id": "davis_bear",
-  "label": "davis: bear"
+  "label": "davis: bear",
+  "parts": 2
  },
  {
   "id": "davis_blackswan",
@@ -25,11 +26,13 @@
  },
  {
   "id": "davis_breakdance",
-  "label": "davis: breakdance"
+  "label": "davis: breakdance",
+  "parts": 2
  },
  {
   "id": "davis_camel",
-  "label": "davis: camel"
+  "label": "davis: camel",
+  "parts": 2
  },
  {
   "id": "davis_dog-agility",
@@ -49,10 +52,12 @@
  },
  {
   "id": "davis_parkour",
-  "label": "davis: parkour"
+  "label": "davis: parkour",
+  "parts": 2
  },
  {
   "id": "davis_rhino",
-  "label": "davis: rhino"
+  "label": "davis: rhino",
+  "parts": 2
  }
 ]

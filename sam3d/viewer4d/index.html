@@ -18,6 +18,8 @@
   #stat { color:#888; font-size:12px; }
   #load { position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
           color:#aaa; z-index:1; pointer-events:none; }
+  #inset { position:absolute; left:12px; bottom:34px; height:200px; z-index:2; display:none;
+           border:1px solid #333; border-radius:4px; background:#000; }
 </style>
 </head>
 <body>
@@ -35,6 +37,7 @@
 </div>
 <div id="hint">drag: orbit (full 360°) &nbsp; shift-drag / right-drag: pan &nbsp; scroll: zoom</div>
 <div id="load">loading…</div>
+<video id="inset" muted loop playsinline></video>
 <script>
 "use strict";
 const MAGIC = 0x34444753;
@@ -122,6 +125,10 @@ const REC = 32;
 let frames = [];        // per frame: {raw: ArrayBuffer(32B recs), n, pos: Float32Array}
 let sorted = [];
 let sortEpoch = 0, curFrame = 0, playing = true, fps = 8, speed = 1;
+const BASE = 0.5;                                  // "1x" plays at half real-time
+const inset = document.getElementById("inset");
+function insetRate() { try { inset.playbackRate = BASE * speed; } catch (e) {} }
+function insetSeek() { if (inset.duration) inset.currentTime = (curFrame / fps) % inset.duration; }
 let target = [0,0,1.5], radius = 2.2;
 // trackball: world->cam rotation, row-major 3x3; identity = the conditioning-camera view
 let V3 = [1,0,0, 0,1,0, 0,0,1];
@@ -273,8 +280,12 @@ let acc = 0, last = performance.now();
 setInterval(() => {
   const now = performance.now();
   if (playing && frames.length) {
-    acc += (now - last) / 1000 * fps * speed;
-    if (acc >= 1) { curFrame = (curFrame + Math.floor(acc)) % frames.length; acc %= 1; }
+    acc += (now - last) / 1000 * fps * BASE * speed;
+    if (acc >= 1) {
+      const nf = (curFrame + Math.floor(acc)) % frames.length;
+      if (nf < curFrame && inset.duration) inset.currentTime = 0;   // resync on loop wrap
+      curFrame = nf; acc %= 1;
+    }
   }
   last = now;
 }, 30);
@@ -295,7 +306,7 @@ window.addEventListener("pointermove", e => {
     target[1] -= (V3[1]*dx + V3[4]*dy) * s;
     target[2] -= (V3[2]*dx + V3[5]*dy) * s;
   } else {
-    V3 = matMul3(matMul3(rotX(-dy * 0.006), rotY(dx * 0.006)), V3);
+    V3 = matMul3(matMul3(rotX(dy * 0.006), rotY(-dx * 0.006)), V3);
   }
   sortEpoch++;
 });
@@ -309,25 +320,51 @@ canvas.addEventListener("wheel", e => {
 document.getElementById("play").onclick = () => {
   playing = !playing;
   document.getElementById("play").textContent = playing ? "⏸" : "▶";
+  if (playing) { insetSeek(); inset.play().catch(()=>{}); } else inset.pause();
 };
-document.getElementById("frame").oninput = e => { playing = false; document.getElementById("play").textContent = "▶"; curFrame = +e.target.value; };
-document.getElementById("speed").onchange = e => speed = +e.target.value;
+document.getElementById("frame").oninput = e => { playing = false; document.getElementById("play").textContent = "▶"; curFrame = +e.target.value; inset.pause(); insetSeek(); };
+document.getElementById("speed").onchange = e => { speed = +e.target.value; insetRate(); };
 document.getElementById("reset").onclick = () => { V3 = [1,0,0, 0,1,0, 0,0,1]; sortEpoch++; };
 
 async function loadScene(name) {
   document.getElementById("load").style.display = "flex";
   document.getElementById("load").textContent = `loading ${name}…`;
   try {
-    const r = await fetch(`scenes/${name}.4dgs`);
-    if (!r.ok) throw `${r.status}`;
-    parse4dgs(await r.arrayBuffer());
+    const meta = (window.__scenes || []).find(x => x.id === name);
+    let ab;
+    if (meta && meta.parts > 1) {              // large scenes ship as split parts
+      const bufs = [];
+      for (let i = 0; i < meta.parts; i++) {
+        const r = await fetch(`scenes/${name}.4dgs.p${i}`);
+        if (!r.ok) throw `${r.status}`;
+        bufs.push(await r.arrayBuffer());
+      }
+      const tot = bufs.reduce((a, b) => a + b.byteLength, 0);
+      const u = new Uint8Array(tot);
+      let o = 0;
+      for (const b of bufs) { u.set(new Uint8Array(b), o); o += b.byteLength; }
+      ab = u.buffer;
+    } else {
+      const r = await fetch(`scenes/${name}.4dgs`);
+      if (!r.ok) throw `${r.status}`;
+      ab = await r.arrayBuffer();
+    }
+    parse4dgs(ab);
   } catch (err) {
     document.getElementById("load").textContent = `failed to load ${name}: ${err}`;
+    return;
   }
+  // input-video inset (raw footage with the mask tinted), like Lift4D's corner overlay
+  inset.style.display = "none";
+  inset.src = `scenes/${name}_input.mp4`;
+  inset.onloadeddata = () => { inset.style.display = "block"; insetRate(); insetSeek();
+                               if (playing) inset.play().catch(()=>{}); };
+  inset.onerror = () => { inset.style.display = "none"; };
 }
 async function init() {
   let scenes = [];
   try { scenes = await (await fetch("scenes/index.json")).json(); } catch (e) {}
+  window.__scenes = scenes;
   const sel = document.getElementById("scene");
   for (const s of scenes) {
     const o = document.createElement("option");
