@@ -1,5 +1,41 @@
 [
  {
+  "id": "davis_bear",
+  "label": "davis: bear"
+ },
+ {
+  "id": "davis_blackswan",
+  "label": "davis: blackswan"
+ },
+ {
+  "id": "davis_breakdance",
+  "label": "davis: breakdance"
+ },
+ {
+  "id": "davis_camel",
+  "label": "davis: camel"
+ },
+ {
+  "id": "davis_dog-agility",
+  "label": "davis: dog-agility"
+ },
+ {
+  "id": "davis_dog",
+  "label": "davis: dog"
+ },
+ {
+  "id": "davis_horsejump-lo",
+  "label": "davis: horsejump-lo"
+ },
+ {
+  "id": "davis_libby",
+  "label": "davis: libby"
+ },
+ {
+  "id": "davis_parkour",
+  "label": "davis: parkour"
+ },
+ {
   "id": "davis_rhino",
   "label": "davis: rhino"
  }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Interactive 4D gaussian-splat viewer for ff4d-sam3d results (.4dgs files). -->
+<!-- Interactive 4D gaussian-splat viewer for ff4d-sam3d results (.4dgs files, v1 32B / v2 18B records). -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -33,11 +33,11 @@
   <button id="reset">reset view</button>
   <span id="stat"></span>
 </div>
-<div id="hint">drag: orbit &nbsp; shift-drag / right-drag: pan &nbsp; scroll: zoom</div>
+<div id="hint">drag: orbit (full 360°) &nbsp; shift-drag / right-drag: pan &nbsp; scroll: zoom</div>
 <div id="load">loading…</div>
 <script>
 "use strict";
-const REC = 32, MAGIC = 0x34444753;
+const MAGIC = 0x34444753;
 const canvas = document.getElementById("gl");
 const gl = canvas.getContext("webgl2", { antialias: false, alpha: false });
 
@@ -62,7 +62,7 @@ void main() {
     2.*(x*y-w*z),    1.-2.*(x*x+z*z),2.*(y*z+w*x),
     2.*(x*z+w*y),    2.*(y*z-w*x),   1.-2.*(x*x+y*y));
   mat3 S = mat3(aScale.x,0.,0., 0.,aScale.y,0., 0.,0.,aScale.z);
-  mat3 M = S * R;                      // sigma = M^T M = R^T S S R (row-vector conv)
+  mat3 M = S * R;
   mat3 cov3 = transpose(M) * M;
   mat3 W = mat3(uView);
   float iz = 1.0 / cam.z;
@@ -117,31 +117,77 @@ gl.disable(gl.DEPTH_TEST);
 gl.enable(gl.BLEND);
 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 
-// scene state
-let frames = [];        // per frame: {raw: ArrayBuffer, n, pos: Float32Array view copy}
-let sorted = [];        // per frame: {buf: ArrayBuffer, epoch}
+// scene state — internal per-frame layout is always the v1 32B record
+const REC = 32;
+let frames = [];        // per frame: {raw: ArrayBuffer(32B recs), n, pos: Float32Array}
+let sorted = [];
 let sortEpoch = 0, curFrame = 0, playing = true, fps = 8, speed = 1;
-let center = [0,0,1.5], radius = 2.2;
-let az = -0.4, el = -0.25, pan = [0,0,0];
+let target = [0,0,1.5], radius = 2.2;
+// trackball: world->cam rotation, row-major 3x3; identity = the conditioning-camera view
+let V3 = [1,0,0, 0,1,0, 0,0,1];
+
+function matMul3(A, B) {
+  const C = new Array(9);
+  for (let i = 0; i < 3; i++)
+    for (let j = 0; j < 3; j++)
+      C[i*3+j] = A[i*3]*B[j] + A[i*3+1]*B[3+j] + A[i*3+2]*B[6+j];
+  return C;
+}
+function rotX(a){const c=Math.cos(a),s=Math.sin(a);return [1,0,0, 0,c,-s, 0,s,c];}
+function rotY(a){const c=Math.cos(a),s=Math.sin(a);return [c,0,s, 0,1,0, -s,0,c];}
+
+function frameFromV1(raw) {
+  const n = raw.byteLength / REC;
+  const fl = new Float32Array(raw);
+  const pos = new Float32Array(n * 3);
+  for (let i = 0; i < n; i++) { pos[i*3]=fl[i*8]; pos[i*3+1]=fl[i*8+1]; pos[i*3+2]=fl[i*8+2]; }
+  return { raw, n, pos };
+}
+function frameFromV2(src, n, hdr) {              // 18B recs -> internal 32B recs
+  const out = new ArrayBuffer(n * REC);
+  const fo = new Float32Array(out), bo = new Uint8Array(out);
+  const u8 = new Uint8Array(src);
+  const pos = new Float32Array(n * 3);
+  const [mnx,mny,mnz,mxx,mxy,mxz,lsn,lsx] = hdr;
+  const ex=(mxx-mnx)/65535, ey=(mxy-mny)/65535, ez=(mxz-mnz)/65535, ls=(lsx-lsn)/255;
+  for (let i = 0; i < n; i++) {
+    const s = i * 18, o = i * 8, ob = i * 32;
+    const px = u8[s] | (u8[s+1]<<8), py = u8[s+2] | (u8[s+3]<<8), pz = u8[s+4] | (u8[s+5]<<8);
+    fo[o]   = pos[i*3]   = mnx + px*ex;
+    fo[o+1] = pos[i*3+1] = mny + py*ey;
+    fo[o+2] = pos[i*3+2] = mnz + pz*ez;
+    fo[o+3] = Math.exp(lsn + u8[s+6]*ls);
+    fo[o+4] = Math.exp(lsn + u8[s+7]*ls);
+    fo[o+5] = Math.exp(lsn + u8[s+8]*ls);
+    for (let k = 0; k < 8; k++) bo[ob+24+k] = u8[s+9+k];   // rgba + rot
+  }
+  return { raw: out, n, pos };
+}
 
 function parse4dgs(ab) {
   const dv = new DataView(ab);
   if (dv.getUint32(0, true) !== MAGIC) throw "bad magic";
   const F = dv.getUint32(4, true);
   fps = dv.getFloat32(8, true) || 8;
+  const ver = dv.getUint32(12, true);
   const counts = new Uint32Array(ab, 16, F);
-  let off = 16 + 4 * F;
   frames = []; sorted = [];
-  for (let f = 0; f < F; f++) {
-    const n = counts[f], bytes = n * REC;
-    const raw = ab.slice(off, off + bytes); off += bytes;
-    const fl = new Float32Array(raw);
-    const pos = new Float32Array(n * 3);
-    for (let i = 0; i < n; i++) { pos[i*3] = fl[i*8]; pos[i*3+1] = fl[i*8+1]; pos[i*3+2] = fl[i*8+2]; }
-    frames.push({ raw, n, pos });
-    sorted.push(null);
+  if (ver >= 2) {
+    const hdrs = new Float32Array(ab, 16 + 4*F, 8*F);
+    let off = 16 + 4*F + 32*F;
+    for (let f = 0; f < F; f++) {
+      const bytes = counts[f] * 18;
+      frames.push(frameFromV2(ab.slice(off, off + bytes), counts[f], hdrs.subarray(f*8, f*8+8)));
+      off += bytes; sorted.push(null);
+    }
+  } else {
+    let off = 16 + 4*F;
+    for (let f = 0; f < F; f++) {
+      const bytes = counts[f] * REC;
+      frames.push(frameFromV1(ab.slice(off, off + bytes)));
+      off += bytes; sorted.push(null);
+    }
   }
-  // frame-0 centroid + extent -> orbit target
   const p0 = frames[0].pos; let c = [0,0,0];
   for (let i = 0; i < frames[0].n; i++) { c[0]+=p0[i*3]; c[1]+=p0[i*3+1]; c[2]+=p0[i*3+2]; }
   c = c.map(v => v / frames[0].n);
@@ -150,42 +196,35 @@ function parse4dgs(ab) {
     const dx=p0[i*3]-c[0], dy=p0[i*3+1]-c[1], dz=p0[i*3+2]-c[2];
     ext = Math.max(ext, dx*dx+dy*dy+dz*dz);
   }
-  center = c; radius = Math.sqrt(ext) * 2.5 + 0.2; pan = [0,0,0];
+  target = c; radius = Math.sqrt(ext) * 2.5 + 0.2;
+  V3 = [1,0,0, 0,1,0, 0,0,1];
   curFrame = 0; sortEpoch++;
   document.getElementById("frame").max = F - 1;
   document.getElementById("load").style.display = "none";
 }
 
-// camera (OpenCV convention: y down, z forward)
 function viewMatrix() {
-  const cy = Math.cos(az), sy = Math.sin(az), cp = Math.cos(el), sp = Math.sin(el);
-  const eye = [center[0]+pan[0] + radius*sy*cp, center[1]+pan[1] + radius*sp,
-               center[2]+pan[2] - radius*cy*cp];
-  const tgt = [center[0]+pan[0], center[1]+pan[1], center[2]+pan[2]];
-  let fwd = [tgt[0]-eye[0], tgt[1]-eye[1], tgt[2]-eye[2]];
-  const fl = Math.hypot(...fwd); fwd = fwd.map(v => v/fl);
-  const upW = [0, 1, 0];                      // y-down world: +y is "down" on screen
-  let right = [fwd[1]*upW[2]-fwd[2]*upW[1], fwd[2]*upW[0]-fwd[0]*upW[2], fwd[0]*upW[1]-fwd[1]*upW[0]];
-  const rl = Math.hypot(...right); right = right.map(v => -v/rl);
-  const dn = [fwd[1]*right[2]-fwd[2]*right[1], fwd[2]*right[0]-fwd[0]*right[2], fwd[0]*right[1]-fwd[1]*right[0]];
+  // eye = target - V3^T [0,0,radius]; view rows = V3
+  const ex = target[0] - (V3[6]*radius), ey = target[1] - (V3[7]*radius), ez = target[2] - (V3[8]*radius);
   return new Float32Array([
-    right[0], dn[0], fwd[0], 0,
-    right[1], dn[1], fwd[1], 0,
-    right[2], dn[2], fwd[2], 0,
-    -(right[0]*eye[0]+right[1]*eye[1]+right[2]*eye[2]),
-    -(dn[0]*eye[0]+dn[1]*eye[1]+dn[2]*eye[2]),
-    -(fwd[0]*eye[0]+fwd[1]*eye[1]+fwd[2]*eye[2]), 1]);
+    V3[0], V3[3], V3[6], 0,
+    V3[1], V3[4], V3[7], 0,
+    V3[2], V3[5], V3[8], 0,
+    -(V3[0]*ex + V3[1]*ey + V3[2]*ez),
+    -(V3[3]*ex + V3[4]*ey + V3[5]*ez),
+    -(V3[6]*ex + V3[7]*ey + V3[8]*ez), 1]);
 }
 function projMatrix(w, h) {
   const fovy = 50 * Math.PI / 180, f = 1 / Math.tan(fovy/2), n = 0.02, fa = 100;
-  return { m: new Float32Array([f*h/w,0,0,0, 0,f,0,0, 0,0,(fa+n)/(fa-n),1, 0,0,-2*fa*n/(fa-n),0]),
-           focal: [f*h/2 * (1), f*h/2] };
+  // negative y: OpenCV camera (+y down) -> NDC (+y up), so the start view is upright
+  return { m: new Float32Array([f*h/w,0,0,0, 0,-f,0,0, 0,0,(fa+n)/(fa-n),1, 0,0,-2*fa*n/(fa-n),0]),
+           focal: [f*h/2, f*h/2] };
 }
 
 function sortFrame(f, view) {
   const fr = frames[f], n = fr.n;
   const d = new Float32Array(n);
-  const vz = [view[2], view[6], view[10], view[14]];
+  const vz = [view[2], view[6], view[10]];
   for (let i = 0; i < n; i++)
     d[i] = vz[0]*fr.pos[i*3] + vz[1]*fr.pos[i*3+1] + vz[2]*fr.pos[i*3+2];
   const idx = Uint32Array.from({length: n}, (_, i) => i);
@@ -240,7 +279,7 @@ setInterval(() => {
   last = now;
 }, 30);
 
-// controls
+// controls — trackball: premultiply camera-space rotations, no clamps
 let drag = null;
 canvas.addEventListener("contextmenu", e => e.preventDefault());
 canvas.addEventListener("pointerdown", e => { drag = { x: e.clientX, y: e.clientY, b: e.button, sh: e.shiftKey }; });
@@ -251,16 +290,19 @@ window.addEventListener("pointermove", e => {
   drag.x = e.clientX; drag.y = e.clientY;
   if (drag.b === 2 || drag.sh) {
     const s = radius * 0.0015;
-    pan[0] -= dx * s * Math.cos(az); pan[2] -= dx * s * Math.sin(az); pan[1] -= dy * s;
+    // pan in camera plane: target += V3^T [-dx*s, -dy*s, 0]
+    target[0] -= (V3[0]*dx + V3[3]*dy) * s;
+    target[1] -= (V3[1]*dx + V3[4]*dy) * s;
+    target[2] -= (V3[2]*dx + V3[5]*dy) * s;
   } else {
-    az += dx * 0.006; el = Math.max(-1.5, Math.min(1.5, el + dy * 0.006));
+    V3 = matMul3(matMul3(rotX(-dy * 0.006), rotY(dx * 0.006)), V3);
   }
   sortEpoch++;
 });
 canvas.addEventListener("wheel", e => {
   e.preventDefault();
   radius *= Math.exp(e.deltaY * 0.001);
-  radius = Math.max(0.1, Math.min(50, radius));
+  radius = Math.max(0.05, Math.min(50, radius));
   sortEpoch++;
 }, { passive: false });
 
@@ -270,7 +312,7 @@ document.getElementById("play").onclick = () => {
 };
 document.getElementById("frame").oninput = e => { playing = false; document.getElementById("play").textContent = "▶"; curFrame = +e.target.value; };
 document.getElementById("speed").onchange = e => speed = +e.target.value;
-document.getElementById("reset").onclick = () => { az = -0.4; el = -0.25; pan = [0,0,0]; sortEpoch++; };
+document.getElementById("reset").onclick = () => { V3 = [1,0,0, 0,1,0, 0,0,1]; sortEpoch++; };
 
 async function loadScene(name) {
   document.getElementById("load").style.display = "flex";
