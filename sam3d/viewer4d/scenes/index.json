@@ -35,12 +35,21 @@
   "parts": 2
  },
  {
+  "id": "davis_cows",
+  "label": "davis: cows",
+  "parts": 2
+ },
+ {
   "id": "davis_dog-agility",
   "label": "davis: dog-agility"
  },
  {
   "id": "davis_dog",
   "label": "davis: dog"
+ },
+ {
+  "id": "davis_horsejump-high",
+  "label": "davis: horsejump-high"
  },
  {
   "id": "davis_horsejump-low",
