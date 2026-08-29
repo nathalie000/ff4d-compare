@@ -68,5 +68,10 @@
   "id": "davis_rhino",
   "label": "davis: rhino",
   "parts": 2
+ },
+ {
+  "id": "davis-sharedK_rhino",
+  "label": "davis-sharedK: rhino",
+  "parts": 2
  }
 ]
