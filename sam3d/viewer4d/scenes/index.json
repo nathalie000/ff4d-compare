@@ -16,6 +16,60 @@
   "label": "m324: 2932fca2b6bf"
  },
  {
+  "id": "davis-megasam_bear",
+  "label": "davis-megasam: bear",
+  "parts": 2
+ },
+ {
+  "id": "davis-megasam_blackswan",
+  "label": "davis-megasam: blackswan"
+ },
+ {
+  "id": "davis-megasam_breakdance",
+  "label": "davis-megasam: breakdance",
+  "parts": 2
+ },
+ {
+  "id": "davis-megasam_camel",
+  "label": "davis-megasam: camel",
+  "parts": 2
+ },
+ {
+  "id": "davis-megasam_cows",
+  "label": "davis-megasam: cows",
+  "parts": 2
+ },
+ {
+  "id": "davis-megasam_dog-agility",
+  "label": "davis-megasam: dog-agility"
+ },
+ {
+  "id": "davis-megasam_dog",
+  "label": "davis-megasam: dog"
+ },
+ {
+  "id": "davis-megasam_horsejump-high",
+  "label": "davis-megasam: horsejump-high"
+ },
+ {
+  "id": "davis-megasam_horsejump-low",
+  "label": "davis-megasam: horsejump-low"
+ },
+ {
+  "id": "davis-megasam_libby",
+  "label": "davis-megasam: libby"
+ },
+ {
+  "id": "davis-megasam_parkour",
+  "label": "davis-megasam: parkour",
+  "parts": 2
+ },
+ {
+  "id": "davis-megasam_rhino",
+  "label": "davis-megasam: rhino",
+  "parts": 2
+ },
+ {
   "id": "davis_bear",
   "label": "davis: bear",
   "parts": 2
@@ -72,11 +126,6 @@
  {
   "id": "davis-sharedK_rhino",
   "label": "davis-sharedK: rhino",
-  "parts": 2
- },
- {
-  "id": "davis-megasam_rhino",
-  "label": "davis-megasam: rhino",
   "parts": 2
  }
 ]
