@@ -70,6 +70,55 @@
   "parts": 2
  },
  {
+  "id": "itw_ball",
+  "label": "itw: ball",
+  "parts": 2
+ },
+ {
+  "id": "itw_bicycle",
+  "label": "itw: bicycle",
+  "parts": 2
+ },
+ {
+  "id": "itw_bird",
+  "label": "itw: bird",
+  "parts": 2
+ },
+ {
+  "id": "itw_book",
+  "label": "itw: book",
+  "parts": 2
+ },
+ {
+  "id": "itw_box",
+  "label": "itw: box",
+  "parts": 2
+ },
+ {
+  "id": "itw_butterfly",
+  "label": "itw: butterfly",
+  "parts": 2
+ },
+ {
+  "id": "itw_goat",
+  "label": "itw: goat",
+  "parts": 2
+ },
+ {
+  "id": "itw_robot",
+  "label": "itw: robot",
+  "parts": 2
+ },
+ {
+  "id": "itw_slime",
+  "label": "itw: slime"
+ },
+ {
+  "id": "itw_yarn",
+  "label": "itw: yarn",
+  "parts": 2
+ },
+ {
   "id": "davis_bear",
   "label": "davis: bear",
   "parts": 2

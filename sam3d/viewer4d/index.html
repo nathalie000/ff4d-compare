@@ -33,6 +33,7 @@
   <select id="speed"><option value="0.25">0.25×</option><option value="0.5">0.5×</option>
     <option value="1" selected>1×</option><option value="2">2×</option></select>
   <button id="reset">reset view</button>
+  <select id="bg"><option value="black" selected>black bg</option><option value="white">white bg</option></select>
   <span id="stat"></span>
 </div>
 <div id="hint">drag: orbit (full 360°) &nbsp; shift-drag / right-drag: pan &nbsp; scroll: zoom</div>
@@ -248,7 +249,7 @@ function draw() {
   const w = canvas.clientWidth * devicePixelRatio, h = canvas.clientHeight * devicePixelRatio;
   if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
   gl.viewport(0, 0, w, h);
-  gl.clearColor(0.066, 0.066, 0.066, 1);
+  gl.clearColor(bgCol[0], bgCol[1], bgCol[2], 1);
   gl.clear(gl.COLOR_BUFFER_BIT);
   if (!frames.length) { requestAnimationFrame(draw); return; }
   const view = viewMatrix();
@@ -325,6 +326,15 @@ document.getElementById("play").onclick = () => {
 document.getElementById("frame").oninput = e => { playing = false; document.getElementById("play").textContent = "▶"; curFrame = +e.target.value; inset.pause(); insetSeek(); };
 document.getElementById("speed").onchange = e => { speed = +e.target.value; insetRate(); };
 document.getElementById("reset").onclick = () => { V3 = [1,0,0, 0,1,0, 0,0,1]; sortEpoch++; };
+let bgCol = [0.066, 0.066, 0.066];
+const bgSel = document.getElementById("bg");
+try { if (localStorage.getItem("v4d_bg")) bgSel.value = localStorage.getItem("v4d_bg"); } catch (e) {}
+function applyBg() {
+  bgCol = bgSel.value === "white" ? [1, 1, 1] : [0.066, 0.066, 0.066];
+  try { localStorage.setItem("v4d_bg", bgSel.value); } catch (e) {}
+}
+bgSel.onchange = applyBg;
+applyBg();
 
 async function loadScene(name) {
   document.getElementById("load").style.display = "flex";
