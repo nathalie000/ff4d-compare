@@ -342,7 +342,11 @@ async function loadScene(name) {
   try {
     const meta = (window.__scenes || []).find(x => x.id === name);
     let ab;
-    if (meta && meta.parts > 1) {              // large scenes ship as split parts
+    if (meta && meta.url) {                    // externally hosted scene (e.g. HF dataset)
+      const r = await fetch(meta.url);
+      if (!r.ok) throw `${r.status}`;
+      ab = await r.arrayBuffer();
+    } else if (meta && meta.parts > 1) {       // large scenes ship as split parts
       const bufs = [];
       for (let i = 0; i < meta.parts; i++) {
         const r = await fetch(`scenes/${name}.4dgs.p${i}`);
@@ -366,7 +370,7 @@ async function loadScene(name) {
   }
   // input-video inset (raw footage with the mask tinted), like Lift4D's corner overlay
   inset.style.display = "none";
-  inset.src = `scenes/${name}_input.mp4`;
+  inset.src = (meta && meta.video_url) || `scenes/${name}_input.mp4`;
   inset.onloadeddata = () => { inset.style.display = "block"; insetRate(); insetSeek();
                                if (playing) inset.play().catch(()=>{}); };
   inset.onerror = () => { inset.style.display = "none"; };
