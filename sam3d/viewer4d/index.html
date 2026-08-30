@@ -339,8 +339,8 @@ applyBg();
 async function loadScene(name) {
   document.getElementById("load").style.display = "flex";
   document.getElementById("load").textContent = `loading ${name}…`;
+  const meta = (window.__scenes || []).find(x => x.id === name);
   try {
-    const meta = (window.__scenes || []).find(x => x.id === name);
     let ab;
     if (meta && meta.url) {                    // externally hosted scene (e.g. HF dataset)
       const r = await fetch(meta.url);
