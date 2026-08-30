@@ -233,10 +233,20 @@ function sortFrame(f, view) {
   const fr = frames[f], n = fr.n;
   const d = new Float32Array(n);
   const vz = [view[2], view[6], view[10]];
-  for (let i = 0; i < n; i++)
-    d[i] = vz[0]*fr.pos[i*3] + vz[1]*fr.pos[i*3+1] + vz[2]*fr.pos[i*3+2];
-  const idx = Uint32Array.from({length: n}, (_, i) => i);
-  idx.sort((a, b) => d[b] - d[a]);                          // back-to-front
+  let mn = Infinity, mx = -Infinity;
+  for (let i = 0; i < n; i++) {
+    const v = vz[0]*fr.pos[i*3] + vz[1]*fr.pos[i*3+1] + vz[2]*fr.pos[i*3+2];
+    d[i] = v;
+    if (v < mn) mn = v;
+    if (v > mx) mx = v;
+  }
+  // O(n) 16-bit counting sort, back-to-front (comparator sort stalls playback at full splat counts)
+  const B = 65536, sc = (B - 1) / Math.max(mx - mn, 1e-9);
+  const key = new Uint32Array(n), cnt = new Uint32Array(B + 1);
+  for (let i = 0; i < n; i++) { const k = B - 1 - (((d[i] - mn) * sc) | 0); key[i] = k; cnt[k + 1]++; }
+  for (let b = 0; b < B; b++) cnt[b + 1] += cnt[b];
+  const idx = new Uint32Array(n);
+  for (let i = 0; i < n; i++) idx[cnt[key[i]]++] = i;
   const src = new Uint32Array(fr.raw), out = new Uint32Array(n * 8);
   for (let i = 0; i < n; i++) {
     const s = idx[i] * 8, o = i * 8;
@@ -270,6 +280,10 @@ function draw() {
   gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 4, gl.UNSIGNED_BYTE, true, REC, 24); gl.vertexAttribDivisor(3, 1);
   gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, REC, 28); gl.vertexAttribDivisor(4, 1);
   gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, fr.n);
+  if (playing && frames.length > 1) {          // pre-sort the next frame so playback never skips
+    const nf = (curFrame + 1) % frames.length;
+    if (!sorted[nf] || sorted[nf].epoch !== sortEpoch) sortFrame(nf, view);
+  }
   document.getElementById("stat").textContent = `${fr.n.toLocaleString()} splats`;
   document.getElementById("fno").textContent = `${curFrame + 1}/${frames.length}`;
   document.getElementById("frame").value = curFrame;

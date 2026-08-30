@@ -156,12 +156,6 @@
   "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_yarn_input.mp4"
  },
  {
-  "id": "itw-perframe_bicycle",
-  "label": "itw-perframe: bicycle",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_bicycle.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_bicycle_input.mp4"
- },
- {
   "id": "davis_bear",
   "label": "davis: bear",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis_bear.4dgs",
