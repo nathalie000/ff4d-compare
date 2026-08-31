@@ -24,138 +24,6 @@
   "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/m324_2932fca2b6bf_input.mp4"
  },
  {
-  "id": "davis-megasam_bear",
-  "label": "davis-megasam: bear",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_bear.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_bear_input.mp4"
- },
- {
-  "id": "davis-megasam_blackswan",
-  "label": "davis-megasam: blackswan",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_blackswan.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_blackswan_input.mp4"
- },
- {
-  "id": "davis-megasam_breakdance",
-  "label": "davis-megasam: breakdance",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_breakdance.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_breakdance_input.mp4"
- },
- {
-  "id": "davis-megasam_camel",
-  "label": "davis-megasam: camel",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_camel.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_camel_input.mp4"
- },
- {
-  "id": "davis-megasam_cows",
-  "label": "davis-megasam: cows",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_cows.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_cows_input.mp4"
- },
- {
-  "id": "davis-megasam_dog-agility",
-  "label": "davis-megasam: dog-agility",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_dog-agility.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_dog-agility_input.mp4"
- },
- {
-  "id": "davis-megasam_dog",
-  "label": "davis-megasam: dog",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_dog.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_dog_input.mp4"
- },
- {
-  "id": "davis-megasam_horsejump-high",
-  "label": "davis-megasam: horsejump-high",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_horsejump-high.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_horsejump-high_input.mp4"
- },
- {
-  "id": "davis-megasam_horsejump-low",
-  "label": "davis-megasam: horsejump-low",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_horsejump-low.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_horsejump-low_input.mp4"
- },
- {
-  "id": "davis-megasam_libby",
-  "label": "davis-megasam: libby",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_libby.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_libby_input.mp4"
- },
- {
-  "id": "davis-megasam_parkour",
-  "label": "davis-megasam: parkour",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_parkour.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_parkour_input.mp4"
- },
- {
-  "id": "davis-megasam_rhino",
-  "label": "davis-megasam: rhino",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_rhino.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-megasam_rhino_input.mp4"
- },
- {
-  "id": "itw_ball",
-  "label": "itw: ball",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_ball.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_ball_input.mp4"
- },
- {
-  "id": "itw_bicycle",
-  "label": "itw: bicycle",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bicycle.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bicycle_input.mp4"
- },
- {
-  "id": "itw_bird",
-  "label": "itw: bird",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bird.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bird_input.mp4"
- },
- {
-  "id": "itw_book",
-  "label": "itw: book",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_book.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_book_input.mp4"
- },
- {
-  "id": "itw_box",
-  "label": "itw: box",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_box.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_box_input.mp4"
- },
- {
-  "id": "itw_butterfly",
-  "label": "itw: butterfly",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_butterfly.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_butterfly_input.mp4"
- },
- {
-  "id": "itw_goat",
-  "label": "itw: goat",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_goat.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_goat_input.mp4"
- },
- {
-  "id": "itw_robot",
-  "label": "itw: robot",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_robot.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_robot_input.mp4"
- },
- {
-  "id": "itw_slime",
-  "label": "itw: slime",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_slime.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_slime_input.mp4"
- },
- {
-  "id": "itw_yarn",
-  "label": "itw: yarn",
-  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_yarn.4dgs",
-  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_yarn_input.mp4"
- },
- {
   "id": "davis_bear",
   "label": "davis: bear",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis_bear.4dgs",
@@ -226,6 +94,72 @@
   "label": "davis: rhino",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis_rhino.4dgs",
   "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis_rhino_input.mp4"
+ },
+ {
+  "id": "itw_ball",
+  "label": "itw: ball",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_ball.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_ball_input.mp4"
+ },
+ {
+  "id": "itw_bicycle",
+  "label": "itw: bicycle",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bicycle.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bicycle_input.mp4"
+ },
+ {
+  "id": "itw_bird",
+  "label": "itw: bird",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bird.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_bird_input.mp4"
+ },
+ {
+  "id": "itw_book",
+  "label": "itw: book",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_book.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_book_input.mp4"
+ },
+ {
+  "id": "itw_box",
+  "label": "itw: box",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_box.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_box_input.mp4"
+ },
+ {
+  "id": "itw_butterfly",
+  "label": "itw: butterfly",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_butterfly.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_butterfly_input.mp4"
+ },
+ {
+  "id": "itw_goat",
+  "label": "itw: goat",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_goat.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_goat_input.mp4"
+ },
+ {
+  "id": "itw_robot",
+  "label": "itw: robot",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_robot.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_robot_input.mp4"
+ },
+ {
+  "id": "itw_slime",
+  "label": "itw: slime",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_slime.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_slime_input.mp4"
+ },
+ {
+  "id": "itw_yarn",
+  "label": "itw: yarn",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_yarn.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw_yarn_input.mp4"
+ },
+ {
+  "id": "itw-perframe_bicycle",
+  "label": "itw-perframe: bicycle",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_bicycle.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_bicycle_input.mp4"
  },
  {
   "id": "davis-sharedK_rhino",
