@@ -162,6 +162,12 @@
   "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_bicycle_input.mp4"
  },
  {
+  "id": "itw-perframe_robot",
+  "label": "itw-perframe: robot",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_robot.4dgs",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/itw-perframe_robot_input.mp4"
+ },
+ {
   "id": "davis-sharedK_rhino",
   "label": "davis-sharedK: rhino",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/davis-sharedK_rhino.4dgs",
