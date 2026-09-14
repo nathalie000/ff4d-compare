@@ -59,7 +59,7 @@
     <h2>Object as</h2>
     <div class="seg" role="group" aria-label="Object representation">
       <button id="rep-points" aria-pressed="true">gaussian points</button>
-      <button id="rep-mesh" aria-pressed="false">mesh</button>
+      <button id="rep-mesh" aria-pressed="false">mesh (normal map)</button>
     </div>
   </div>
   <div id="framestrip" hidden>
@@ -240,7 +240,11 @@
       for (let i = 0; i < g.count; i++) for (let d = 0; d < 3; d++) pos[3 * i + d] = lo[d] + (q[3 * i + d] / 65535) * (hi[d] - lo[d]);
       const geo = new THREE.BufferGeometry();
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setIndex(new THREE.BufferAttribute(idx, 1)); geo.computeVertexNormals();
-      const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: MESH_BASE.clone(), roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide }));
+      // solid normal map as in our figures: color = n * 0.5 + 0.5 with n in the OpenCV world frame (three.js y, z negated)
+      const nr = geo.attributes.normal.array, ncol = new Float32Array(g.count * 3);
+      for (let i = 0; i < g.count; i++) { ncol[3 * i] = nr[3 * i] * 0.5 + 0.5; ncol[3 * i + 1] = -nr[3 * i + 1] * 0.5 + 0.5; ncol[3 * i + 2] = -nr[3 * i + 2] * 0.5 + 0.5; }
+      geo.setAttribute('color', new THREE.BufferAttribute(ncol, 3));
+      const mesh = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ vertexColors: true, side: THREE.DoubleSide }));
       mesh.frustumCulled = false; mesh.visible = false; scene.add(mesh);
       state.groups[g.name] = { pts: mesh, count: g.count, mesh: true };
       return;
@@ -303,7 +307,7 @@
       }
       g.pts.geometry.attributes.color.needsUpdate = true;
     });
-    meshKeys().forEach((k, i) => { const c = tintFor(i, meshKeys().length); state.groups[k].pts.material.color = state.tint ? new THREE.Color(c[0], c[1], c[2]) : MESH_BASE.clone(); });
+    // meshes keep their normal-map colors (tint applies to the gaussian points only)
   }
   function objBounds() {
     const b = new THREE.Box3();
