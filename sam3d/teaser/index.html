@@ -1,0 +1,352 @@
+<title>Teaser Scenes</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+  :root { color-scheme: dark; --bg:#0f1113; --panel:#1a1d21; --panel-2:#22262b; --line:#2c3138; --ink:#e6e8eb; --mute:#8a919a;
+          --accent:#e06a00; --accent-2:#ff9a3c; --shape:#4d8fe0; --t0:#ff9a3c; --t7:#ff6b3d; --t15:#ffd166; --good:#4caf50; }
+  :root[data-bg="white"] { color-scheme: light; --bg:#ffffff; --panel:#f4f5f7; --panel-2:#e9ebee; --line:#d3d7dc; --ink:#14181c; --mute:#5f6873; }
+  html, body { height:100%; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 "IBM Plex Sans", system-ui, sans-serif; overflow:hidden; }
+  #c { position:fixed; inset:0; display:block; }
+  #panel { position:fixed; left:16px; top:16px; width:min(300px, calc(100vw - 32px)); max-height:calc(100vh - 32px); overflow:auto;
+           background:color-mix(in srgb, var(--panel) 92%, transparent); border:1px solid var(--line); border-radius:8px; padding:14px 16px 16px; box-sizing:border-box; backdrop-filter:blur(6px); }
+  h1 { font-size:16px; font-weight:600; margin:0 0 2px; letter-spacing:.01em; }
+  .sub { color:var(--mute); font-size:12.5px; margin:0 0 12px; }
+  .seg { display:flex; border:1px solid var(--line); border-radius:6px; overflow:hidden; }
+  .seg button { background:var(--panel-2); color:var(--ink); border:0; padding:6px 12px; cursor:pointer; font:inherit; font-size:13px; }
+  .seg button[aria-pressed="true"] { background:var(--accent); color:#111; font-weight:600; }
+  .seg button:focus-visible, button:focus-visible, input:focus-visible { outline:2px solid var(--accent-2); outline-offset:1px; }
+  h2 { font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--mute); margin:14px 0 6px; font-weight:600; }
+  label.chk { display:flex; align-items:center; gap:8px; padding:4px 0; cursor:pointer; }
+  label.chk input { accent-color:var(--accent); }
+  .sw { width:12px; height:12px; border-radius:3px; flex:none; }
+  .n { font-family:"IBM Plex Mono", ui-monospace, monospace; color:var(--mute); font-size:12px; margin-left:auto; font-variant-numeric:tabular-nums; }
+  .btns { display:flex; gap:6px; flex-wrap:wrap; }
+  .btns button { background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:5px 10px; cursor:pointer; font:inherit; font-size:13px; }
+  .btns button:hover { border-color:var(--accent); }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .hint { color:var(--mute); font-size:12px; margin-top:12px; }
+  .nav { display:grid; grid-template-columns:auto 1fr; gap:10px 14px; align-items:center; }
+  #ball { width:132px; height:132px; border-radius:50%; cursor:grab; touch-action:none; display:block; }
+  #ball:active { cursor:grabbing; }
+  .pad { display:grid; grid-template-columns:repeat(3, 34px); grid-template-rows:repeat(3, 30px); gap:4px; justify-content:start; }
+  .pad button { background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:6px; cursor:pointer; font:inherit; font-size:13px; padding:0; }
+  .pad button:hover { border-color:var(--accent); }
+  .pad .mid { background:transparent; border:0; color:var(--mute); font-size:11px; cursor:default; }
+  .zoom { display:flex; gap:4px; margin-top:6px; }
+  .zoom button { flex:1; background:var(--panel-2); color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:4px 0; cursor:pointer; font:inherit; font-size:13px; }
+  #status { font-family:"IBM Plex Mono", ui-monospace, monospace; font-size:12px; color:var(--mute); margin-top:8px; }
+  @media (prefers-reduced-motion: reduce) { * { transition:none !important; } }
+</style>
+
+<canvas id="c" aria-label="3D viewer"></canvas>
+<div id="panel">
+  <h1>Object placed in the reconstructed scene</h1>
+  <p class="sub">VGGT scene of the whole clip; our shape placed by its predicted layout at each timestep and moved to the world by that frame's camera (VGGT pointmaps as input).</p>
+  <div class="seg" role="group" aria-label="Sequence" id="seqbar" style="flex-wrap:wrap"></div>
+  <h2>Layers</h2>
+  <label class="chk"><input type="checkbox" id="l-scene" checked><span class="sw" style="background:#9aa3ad"></span>scene (VGGT points)<span class="n" id="n-scene"></span></label>
+  <label class="chk"><input type="checkbox" id="l-trail" checked><span class="sw" style="background:linear-gradient(90deg,var(--t0),var(--t15))"></span>trail: every timestep at once<span class="n" id="n-obj"></span></label>
+  <label class="chk"><input type="checkbox" id="l-tint"><span class="sw" style="background:linear-gradient(90deg,var(--t0),var(--t15))"></span>tint objects by timestep</label>
+  <div id="repbar" hidden>
+    <h2>Object as</h2>
+    <div class="seg" role="group" aria-label="Object representation">
+      <button id="rep-points" aria-pressed="true">gaussian points</button>
+      <button id="rep-mesh" aria-pressed="false">mesh</button>
+    </div>
+  </div>
+  <h2>Timestep <span class="n" id="fr-v">0</span></h2>
+  <input type="range" id="fr" min="0" max="0" step="1" value="0" aria-label="Timestep">
+  <h2>Playback <span class="n" id="fps-v">8 fps</span></h2>
+  <div class="btns"><button id="pl-play">play</button><label class="chk" style="padding:0 0 0 6px"><input type="checkbox" id="pl-loop" checked>loop</label></div>
+  <input type="range" id="fps" min="1" max="30" step="1" value="8" aria-label="Frames per second" style="margin-top:6px">
+  <h2>Camera</h2>
+  <div class="btns">
+    <button id="cam-reset">reset view</button>
+    <button id="cam-fit">fit objects</button>
+    <button id="cam-cur">camera of this timestep</button>
+    <button id="cam-top">top</button>
+  </div>
+  <h2>Navigate</h2>
+  <div class="nav">
+    <canvas id="ball" width="264" height="264" aria-label="Drag to rotate the view"></canvas>
+    <div>
+      <div class="pad">
+        <button class="mid"></button><button id="nv-up" title="tilt up">▲</button><button class="mid"></button>
+        <button id="nv-left" title="turn left">◀</button><button class="mid">15°</button><button id="nv-right" title="turn right">▶</button>
+        <button class="mid"></button><button id="nv-down" title="tilt down">▼</button><button class="mid"></button>
+      </div>
+      <div class="zoom"><button id="nv-in">zoom in</button><button id="nv-out">zoom out</button></div>
+      <label class="chk" style="margin-top:6px"><input type="checkbox" id="nv-auto">slow auto-orbit</label>
+    </div>
+  </div>
+  <h2>Background</h2>
+  <div class="seg" role="group" aria-label="Background">
+    <button id="bg-black" aria-pressed="true">black</button>
+    <button id="bg-white" aria-pressed="false">white</button>
+  </div>
+  <h2>Scene point size <span class="n" id="ps-v">0.015</span></h2>
+  <input type="range" id="ps" min="0.003" max="0.06" step="0.001" value="0.015" aria-label="Scene point size">
+  <h2>Object point size <span class="n" id="pso-v">0.010</span></h2>
+  <input type="range" id="pso" min="0.002" max="0.04" step="0.001" value="0.010" aria-label="Object point size">
+  <div class="hint">Drag the view or the ball to orbit, arrow keys or the pad for 5°/15° steps, wheel to zoom, right-drag or shift-drag to pan, R resets, space plays/pauses. Units: VGGT scene, rescaled so the median depth is 2.</div>
+  <div id="status">loading…</div>
+</div>
+
+<script>window.VIEWER_SEQS = [["horsejump-low", "horsejump-low \u00b7 3 t"], ["libby", "libby \u00b7 3 t"], ["camel", "camel \u00b7 3 t"]]; window.VIEWER_BASE = "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/teaser/";</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  const canvas = document.getElementById('c');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  const scene = new THREE.Scene(); scene.background = new THREE.Color(0x0f1113);
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.01, 200);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x404040, 0.9));
+  const keyLight = new THREE.DirectionalLight(0xffffff, 0.8); keyLight.position.set(-2, 3, 2); scene.add(keyLight);
+  const MESH_BASE = new THREE.Color(0xd9d2c5);   // neutral clay for the mesh; tint-by-timestep recolors it
+  const state = { seq: null, groups: {}, manifest: null, target: new THREE.Vector3(), sph: new THREE.Spherical(4, 1.2, 0.3), size: 0.015, sizeObj: 0.010, tint: false };
+  const tintFor = (i, n) => { const u = n > 1 ? i / (n - 1) : 0; return [1.0, 0.45 + 0.4 * u, 0.22 + 0.2 * u]; };   // orange -> yellow along time
+  const objKeys = () => Object.keys(state.groups).filter(k => /^t\d+$/.test(k)).sort((a, b) => parseInt(a.slice(1)) - parseInt(b.slice(1)));
+  const sceneKeys = () => Object.keys(state.groups).filter(k => k.startsWith('scene'));
+  const meshKeys = () => Object.keys(state.groups).filter(k => /^m\d+$/.test(k)).sort((a, b) => parseInt(a.slice(1)) - parseInt(b.slice(1)));
+  let rep = 'points';   // a dense scene arrives in several slices
+
+  function resize() {
+    const w = window.innerWidth, h = window.innerHeight;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  window.addEventListener('resize', resize); resize();
+
+  // --- orbit / pan / zoom (own minimal controls) ---
+  let drag = null;
+  canvas.addEventListener('contextmenu', e => e.preventDefault());
+  canvas.addEventListener('pointerdown', e => { drag = { x: e.clientX, y: e.clientY, pan: e.button === 2 || e.shiftKey }; canvas.setPointerCapture(e.pointerId); });
+  canvas.addEventListener('pointerup', () => { drag = null; });
+  canvas.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY;
+    if (drag.pan) {
+      const s = state.sph.radius * 0.0015;
+      const right = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 0), up = new THREE.Vector3().setFromMatrixColumn(camera.matrix, 1);
+      state.target.addScaledVector(right, -dx * s).addScaledVector(up, dy * s);
+    } else { goal.theta -= dx * 0.0035; goal.phi = Math.min(Math.PI - 0.05, Math.max(0.05, goal.phi - dy * 0.0035)); }
+    if (drag.pan) place();
+  });
+  canvas.addEventListener('wheel', e => { e.preventDefault(); goal.radius = Math.max(0.05, Math.min(100, goal.radius * Math.exp(e.deltaY * 0.001))); }, { passive: false });
+  function place() { camera.position.setFromSpherical(state.sph).add(state.target); camera.lookAt(state.target); camera.updateMatrixWorld(); drawBall(); }
+  // --- navigation ball: a shaded sphere with the world axes as seen from the current camera; drag it to rotate
+  const ball = document.getElementById('ball'), bctx = ball.getContext('2d');
+  function drawBall() {
+    const W = ball.width, R = W / 2 - 6, cx = W / 2, cy = W / 2; bctx.clearRect(0, 0, W, W);
+    const light = document.documentElement.dataset.bg === 'white';
+    const g = bctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, R * 0.1, cx, cy, R);
+    g.addColorStop(0, light ? '#ffffff' : '#3a4048'); g.addColorStop(1, light ? '#c9ced4' : '#14171b');
+    bctx.beginPath(); bctx.arc(cx, cy, R, 0, Math.PI * 2); bctx.fillStyle = g; bctx.fill();
+    bctx.lineWidth = 2; bctx.strokeStyle = light ? '#8d99a6' : '#5b6770'; bctx.stroke();
+    const inv = camera.matrixWorldInverse;                             // world -> camera
+    const axes = [['x', 1, 0, 0, '#e06a00'], ['y', 0, 1, 0, '#4caf50'], ['z', 0, 0, 1, '#4d8fe0']];
+    const segs = [];
+    for (const [nm, x, y, z, col] of axes) { const v = new THREE.Vector3(x, y, z).transformDirection(inv); segs.push({ nm, v, col }); }
+    segs.sort((a, b) => a.v.z - b.v.z);                                // far first
+    for (const s of segs) {
+      const ex = cx + s.v.x * R * 0.85, ey = cy - s.v.y * R * 0.85, front = s.v.z <= 0;   // three.js camera looks down -z
+      bctx.globalAlpha = front ? 1 : 0.35; bctx.strokeStyle = s.col; bctx.lineWidth = 3;
+      bctx.beginPath(); bctx.moveTo(cx, cy); bctx.lineTo(ex, ey); bctx.stroke();
+      bctx.fillStyle = s.col; bctx.beginPath(); bctx.arc(ex, ey, 9, 0, Math.PI * 2); bctx.fill();
+      bctx.fillStyle = '#111'; bctx.font = 'bold 12px IBM Plex Sans, sans-serif'; bctx.textAlign = 'center'; bctx.textBaseline = 'middle'; bctx.fillText(s.nm, ex, ey + 1);
+    }
+    bctx.globalAlpha = 1;
+  }
+  let bdrag = null;
+  ball.addEventListener('pointerdown', e => { bdrag = { x: e.clientX, y: e.clientY }; ball.setPointerCapture(e.pointerId); });
+  ball.addEventListener('pointerup', () => { bdrag = null; });
+  ball.addEventListener('pointermove', e => {
+    if (!bdrag) return; const dx = e.clientX - bdrag.x, dy = e.clientY - bdrag.y; bdrag.x = e.clientX; bdrag.y = e.clientY;
+    goal.theta -= dx * 0.012; goal.phi = Math.min(Math.PI - 0.05, Math.max(0.05, goal.phi - dy * 0.012));
+  });
+  const goal = { theta: state.sph.theta, phi: state.sph.phi, radius: state.sph.radius };   // damped targets
+  function nudge(dt, dp) { goal.theta += dt; goal.phi = Math.min(Math.PI - 0.05, Math.max(0.05, goal.phi + dp)); }
+  document.getElementById('nv-left').addEventListener('click', () => nudge(THREE.MathUtils.degToRad(15), 0));
+  document.getElementById('nv-right').addEventListener('click', () => nudge(-THREE.MathUtils.degToRad(15), 0));
+  document.getElementById('nv-up').addEventListener('click', () => nudge(0, -THREE.MathUtils.degToRad(15)));
+  document.getElementById('nv-down').addEventListener('click', () => nudge(0, THREE.MathUtils.degToRad(15)));
+  document.getElementById('nv-in').addEventListener('click', () => { goal.radius *= 0.8; });
+  document.getElementById('nv-out').addEventListener('click', () => { goal.radius *= 1.25; });
+  window.addEventListener('keydown', e => {
+    const s = THREE.MathUtils.degToRad(5);
+    if (e.key === 'ArrowLeft') nudge(s, 0); else if (e.key === 'ArrowRight') nudge(-s, 0); else if (e.key === 'ArrowUp') nudge(0, -s); else if (e.key === 'ArrowDown') nudge(0, s); else return;
+    e.preventDefault();
+  });
+
+  // --- data ---
+  let loadToken = 0;
+  async function load(seq) {
+    const tok = ++loadToken;
+    document.getElementById('status').textContent = 'loading ' + seq + '…';
+    for (const g of Object.values(state.groups)) { scene.remove(g.pts); g.pts.geometry.dispose(); g.pts.material.dispose(); }
+    state.groups = {};
+    const BASE = window.VIEWER_BASE || '';                              // data files can live on another host (e.g. the HF dataset)
+    const man = await fetch(BASE + seq + '.json').then(r => r.json());
+    if (tok !== loadToken) return;
+    state.manifest = man;
+    if (man.defaults) { setSize('ps', man.defaults.scene_size); setSize('pso', man.defaults.obj_size); }
+    const parts = man.files ? man.files : [null];
+    for (let i = 0; i < parts.length; i++) {
+      const groups = parts[i] ? (await fetch(BASE + parts[i]).then(r => r.json())).groups : man.groups;
+      if (tok !== loadToken) return;
+      for (const g of groups) addGroup(g);
+      const ks = objKeys();
+      if (ks.length) { const fr = document.getElementById('fr'); fr.max = ks.length - 1; }
+      applyLayers(); if (i === 0) fitObjects();
+      document.getElementById('status').textContent = seq + ': loading part ' + (i + 1) + '/' + parts.length + '…';
+    }
+    const ks = objKeys(), nScene = sceneKeys().reduce((n, k) => n + state.groups[k].count, 0);
+    document.getElementById('n-scene').textContent = nScene.toLocaleString();
+    document.getElementById('repbar').hidden = !meshKeys().length;
+    document.getElementById('n-obj').textContent = ks.length + ' × ~' + (ks.length ? state.groups[ks[0]].count.toLocaleString() : 0);
+    const fr = document.getElementById('fr'); fr.max = ks.length - 1; fr.value = 0; document.getElementById('fr-v').textContent = ks.length ? ks[0].slice(1) : '0';
+    applyLayers(); applyTint(); fitObjects();
+    document.getElementById('status').textContent = seq + ': scene ' + nScene.toLocaleString() + ' pts · ' + ks.length + ' timesteps × ~' + (ks.length ? state.groups[ks[0]].count.toLocaleString() : 0) + ' pts' + (man.note ? ' · ' + man.note : '') + (man.chunked ? ' · inferred in ' + man.chunked + '-frame windows' : '');
+  }
+  function addGroup(g) {
+    const s = atob(g.data), bytes = new Uint8Array(s.length);
+    for (let i = 0; i < s.length; i++) bytes[i] = s.charCodeAt(i);
+    if (g.kind === 'mesh') {
+      const q = new Uint16Array(bytes.buffer, 0, g.count * 3), idx = new Uint32Array(bytes.buffer.slice(g.count * 6, g.count * 6 + g.nfaces * 12));
+      const pos = new Float32Array(g.count * 3), lo = g.bbox_min, hi = g.bbox_max;
+      for (let i = 0; i < g.count; i++) for (let d = 0; d < 3; d++) pos[3 * i + d] = lo[d] + (q[3 * i + d] / 65535) * (hi[d] - lo[d]);
+      const geo = new THREE.BufferGeometry();
+      geo.setAttribute('position', new THREE.BufferAttribute(pos, 3)); geo.setIndex(new THREE.BufferAttribute(idx, 1)); geo.computeVertexNormals();
+      const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ color: MESH_BASE.clone(), roughness: 0.85, metalness: 0.0, side: THREE.DoubleSide }));
+      mesh.frustumCulled = false; mesh.visible = false; scene.add(mesh);
+      state.groups[g.name] = { pts: mesh, count: g.count, mesh: true };
+      return;
+    }
+    const q = new Uint16Array(bytes.buffer, 0, g.count * 3), col8 = new Uint8Array(bytes.buffer, g.count * 6, g.count * 3);
+    const pos = new Float32Array(g.count * 3), lo = g.bbox_min, hi = g.bbox_max;
+    for (let i = 0; i < g.count; i++) for (let d = 0; d < 3; d++) pos[3 * i + d] = lo[d] + (q[3 * i + d] / 65535) * (hi[d] - lo[d]);
+    const col = new Float32Array(g.count * 3), raw = new Float32Array(g.count * 3);
+    for (let i = 0; i < g.count * 3; i++) { raw[i] = col8[i] / 255; }
+    col.set(raw);
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+    const isScene = g.name.startsWith('scene');
+    const pts = new THREE.Points(geo, new THREE.PointsMaterial({ size: isScene ? state.size : state.sizeObj, vertexColors: true, sizeAttenuation: true })); pts.frustumCulled = false; scene.add(pts);
+    state.groups[g.name] = { pts, raw, col, count: g.count };
+  }
+  function setSize(id, v) { const el = document.getElementById(id); el.value = v; el.dispatchEvent(new Event('input')); }
+  function applyLayers() {
+    const ks = objKeys(), trail = document.getElementById('l-trail').checked, cur = parseInt(document.getElementById('fr').value);
+    for (const k of sceneKeys()) state.groups[k].pts.visible = document.getElementById('l-scene').checked;
+    ks.forEach((k, i) => { state.groups[k].pts.visible = rep === 'points' && (trail || i === cur); });
+    meshKeys().forEach((k, i) => { state.groups[k].pts.visible = rep === 'mesh' && (trail || i === cur); });
+    document.getElementById('fr-v').textContent = ks[cur] ? ks[cur].slice(1) : '0';
+  }
+  function applyTint() {
+    state.tint = document.getElementById('l-tint').checked;
+    const ks = objKeys();
+    ks.forEach((k, i) => {
+      const g = state.groups[k], c = tintFor(i, ks.length);
+      for (let j = 0; j < g.count; j++) {
+        const l = 0.3 + 0.7 * (0.299 * g.raw[3 * j] + 0.587 * g.raw[3 * j + 1] + 0.114 * g.raw[3 * j + 2]);
+        g.col[3 * j] = state.tint ? c[0] * l : g.raw[3 * j]; g.col[3 * j + 1] = state.tint ? c[1] * l : g.raw[3 * j + 1]; g.col[3 * j + 2] = state.tint ? c[2] * l : g.raw[3 * j + 2];
+      }
+      g.pts.geometry.attributes.color.needsUpdate = true;
+    });
+    meshKeys().forEach((k, i) => { const c = tintFor(i, meshKeys().length); state.groups[k].pts.material.color = state.tint ? new THREE.Color(c[0], c[1], c[2]) : MESH_BASE.clone(); });
+  }
+  function objBounds() {
+    const b = new THREE.Box3();
+    for (const k of objKeys()) { const g = state.groups[k]; g.pts.geometry.computeBoundingBox(); b.union(g.pts.geometry.boundingBox); }
+    if (b.isEmpty()) for (const k of meshKeys()) { const g = state.groups[k]; g.pts.geometry.computeBoundingBox(); b.union(g.pts.geometry.boundingBox); }
+    return b;
+  }
+  function fitObjects() {
+    const b = objBounds(); if (b.isEmpty()) return;
+    b.getCenter(state.target); const r = b.getSize(new THREE.Vector3()).length() / 2;
+    const cam0 = state.manifest.cameras[0]; if (!cam0) return; const p = new THREE.Vector3(...cam0.pos);
+    // look from the frame-0 side, far enough back to fit every timestep
+    const dir = new THREE.Vector3().subVectors(p, state.target).normalize();
+    const dist = Math.max(1.3 * r / Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2), 0.5);
+    state.sph.setFromVector3(dir.multiplyScalar(dist)); state.sph.phi = Math.min(state.sph.phi, 1.35); syncGoal(); place();
+  }
+  function goFrame(f) {
+    const c = state.manifest.cameras[f]; if (!c) return;
+    const pos = new THREE.Vector3(...c.pos), M = new THREE.Matrix4();
+    const r = c.rot; M.set(r[0][0], r[0][1], r[0][2], 0, r[1][0], r[1][1], r[1][2], 0, r[2][0], r[2][1], r[2][2], 0, 0, 0, 0, 1);
+    const fwd = new THREE.Vector3(0, 0, -1).applyMatrix4(M).normalize();   // three.js camera looks down -z
+    // orbit target = a point 2 units ahead of that camera; the orbit sphere then reproduces its pose
+    state.target.copy(pos).addScaledVector(fwd, 2.0);
+    state.sph.setFromVector3(new THREE.Vector3().subVectors(pos, state.target)); syncGoal();
+    camera.fov = c.fov_deg; camera.updateProjectionMatrix(); place();
+  }
+  function goTop() { const b = objBounds(); if (b.isEmpty()) return; b.getCenter(state.target); const r = b.getSize(new THREE.Vector3()).length(); state.sph.set(Math.max(r * 1.6, 1), 0.15, state.sph.theta); syncGoal(); place(); }
+
+  // --- ui ---
+  const SEQS = (window.VIEWER_SEQS || [['parkour', 'parkour · 3 t'], ['libby', 'libby · 3 t'], ['libby_full', 'libby · 49 t']]);
+  const bar = document.getElementById('seqbar');
+  for (const [s, label] of SEQS) {
+    const b = document.createElement('button'); b.id = 'seq-' + s; b.textContent = label; b.setAttribute('aria-pressed', String(s === SEQS[0][0]));
+    b.addEventListener('click', () => { if (play.on) stopPlay(); state.seq = s; for (const [q] of SEQS) document.getElementById('seq-' + q).setAttribute('aria-pressed', String(q === s)); load(s); });
+    bar.appendChild(b);
+  }
+  for (const k of ['scene', 'trail']) document.getElementById('l-' + k).addEventListener('change', applyLayers);
+  for (const r of ['points', 'mesh']) document.getElementById('rep-' + r).addEventListener('click', () => { rep = r; for (const q of ['points', 'mesh']) document.getElementById('rep-' + q).setAttribute('aria-pressed', String(q === r)); applyLayers(); });
+  document.getElementById('fr').addEventListener('input', applyLayers);
+  document.getElementById('l-tint').addEventListener('change', applyTint);
+  function resetView() {
+    camera.fov = 60; camera.updateProjectionMatrix();
+    document.getElementById('fr').value = 0; document.getElementById('l-trail').checked = true; document.getElementById('l-scene').checked = true;
+    applyLayers(); fitObjects();
+  }
+  document.getElementById('cam-reset').addEventListener('click', resetView);
+  window.addEventListener('keydown', e => { if (e.key === 'r' || e.key === 'R') resetView(); });
+  document.getElementById('cam-fit').addEventListener('click', () => { camera.fov = 60; camera.updateProjectionMatrix(); fitObjects(); });
+  document.getElementById('cam-cur').addEventListener('click', () => { const ks = objKeys(); const k = ks[parseInt(document.getElementById('fr').value)]; if (k) goFrame(parseInt(k.slice(1))); });
+  document.getElementById('cam-top').addEventListener('click', goTop);
+  const BG = { black: 0x0f1113, white: 0xffffff };
+  function setBg(k) {
+    scene.background.setHex(BG[k]);
+    document.documentElement.dataset.bg = k;
+    for (const q of ['black', 'white']) document.getElementById('bg-' + q).setAttribute('aria-pressed', String(q === k));
+    drawBall();
+    try { localStorage.setItem('viewer-bg', k); } catch (e) {}
+  }
+  document.getElementById('bg-black').addEventListener('click', () => setBg('black'));
+  document.getElementById('bg-white').addEventListener('click', () => setBg('white'));
+  try { const k = localStorage.getItem('viewer-bg'); if (k === 'white') setBg('white'); } catch (e) {}
+  const ps = document.getElementById('ps');
+  ps.addEventListener('input', () => { state.size = parseFloat(ps.value); document.getElementById('ps-v').textContent = ps.value; for (const k of sceneKeys()) state.groups[k].pts.material.size = state.size; });
+  const pso = document.getElementById('pso');
+  pso.addEventListener('input', () => { state.sizeObj = parseFloat(pso.value); document.getElementById('pso-v').textContent = pso.value; for (const k of objKeys()) state.groups[k].pts.material.size = state.sizeObj; });
+
+  function syncGoal() { goal.theta = state.sph.theta; goal.phi = state.sph.phi; goal.radius = state.sph.radius; }
+
+  // --- playback: one timestep at a time, scene fixed ---
+  const play = { on: false, timer: null };
+  const fpsEl = document.getElementById('fps'), playBtn = document.getElementById('pl-play');
+  fpsEl.addEventListener('input', () => { document.getElementById('fps-v').textContent = fpsEl.value + ' fps'; if (play.on) startTimer(); });
+  function startTimer() {
+    if (play.timer) clearInterval(play.timer);
+    play.timer = setInterval(() => {
+      const fr = document.getElementById('fr'), max = parseInt(document.getElementById('fr').max); let v = parseInt(fr.value) + 1;
+      if (v > max) { if (!document.getElementById('pl-loop').checked) { stopPlay(); return; } v = 0; }
+      fr.value = v; applyLayers();
+    }, 1000 / parseInt(fpsEl.value));
+  }
+  function stopPlay() { play.on = false; playBtn.textContent = 'play'; if (play.timer) clearInterval(play.timer); play.timer = null; }
+  async function startPlay() { play.on = true; playBtn.textContent = 'pause'; document.getElementById('l-trail').checked = false; applyLayers(); startTimer(); }
+  playBtn.addEventListener('click', () => play.on ? stopPlay() : startPlay());
+  window.addEventListener('keydown', e => { if (e.key === ' ' && e.target === document.body) { e.preventDefault(); play.on ? stopPlay() : startPlay(); } });
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function frame() {
+    if (document.getElementById('nv-auto').checked) goal.theta -= 0.004;
+    const a = reduced ? 1 : 0.18;                                        // damping toward the goal
+    const dTh = goal.theta - state.sph.theta, dPh = goal.phi - state.sph.phi, dR = goal.radius - state.sph.radius;
+    if (Math.abs(dTh) + Math.abs(dPh) + Math.abs(dR) > 1e-5) { state.sph.theta += dTh * a; state.sph.phi += dPh * a; state.sph.radius += dR * a; place(); }
+    renderer.render(scene, camera); requestAnimationFrame(frame);
+  }
+  state.seq = SEQS[0][0]; place(); load(SEQS[0][0]); frame();
+})();
+</script>
