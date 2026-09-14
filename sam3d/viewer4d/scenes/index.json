@@ -1,10 +1,136 @@
 [
  {
+  "id": "vggt_ball",
+  "label": "vggt world: ball",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_ball.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_ball_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_ball_input.mp4"
+ },
+ {
+  "id": "vggt_bear",
+  "label": "vggt world: bear",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bear.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bear_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bear_input.mp4"
+ },
+ {
+  "id": "vggt_bicycle",
+  "label": "vggt world: bicycle",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bicycle.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bicycle_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bicycle_input.mp4"
+ },
+ {
+  "id": "vggt_bird",
+  "label": "vggt world: bird",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bird.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bird_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_bird_input.mp4"
+ },
+ {
+  "id": "vggt_blackswan",
+  "label": "vggt world: blackswan",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_blackswan.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_blackswan_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_blackswan_input.mp4"
+ },
+ {
+  "id": "vggt_book",
+  "label": "vggt world: book",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_book.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_book_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_book_input.mp4"
+ },
+ {
+  "id": "vggt_box",
+  "label": "vggt world: box",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_box.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_box_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_box_input.mp4"
+ },
+ {
+  "id": "vggt_butterfly",
+  "label": "vggt world: butterfly",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_butterfly.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_butterfly_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_butterfly_input.mp4"
+ },
+ {
+  "id": "vggt_camel",
+  "label": "vggt world: camel",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_camel.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_camel_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_camel_input.mp4"
+ },
+ {
+  "id": "vggt_dog-agility",
+  "label": "vggt world: dog-agility",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog-agility.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog-agility_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog-agility_input.mp4"
+ },
+ {
+  "id": "vggt_dog",
+  "label": "vggt world: dog",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_dog_input.mp4"
+ },
+ {
+  "id": "vggt_goat",
+  "label": "vggt world: goat",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_goat.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_goat_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_goat_input.mp4"
+ },
+ {
+  "id": "vggt_horsejump-low",
+  "label": "vggt world: horsejump-low",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_horsejump-low.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_horsejump-low_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_horsejump-low_input.mp4"
+ },
+ {
   "id": "vggt_libby",
   "label": "vggt world: libby",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby.4dgs",
   "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby_scene.bin",
   "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby_input.mp4"
+ },
+ {
+  "id": "vggt_parkour",
+  "label": "vggt world: parkour",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_parkour.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_parkour_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_parkour_input.mp4"
+ },
+ {
+  "id": "vggt_rhino",
+  "label": "vggt world: rhino",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_rhino.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_rhino_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_rhino_input.mp4"
+ },
+ {
+  "id": "vggt_robot",
+  "label": "vggt world: robot",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_robot.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_robot_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_robot_input.mp4"
+ },
+ {
+  "id": "vggt_slime",
+  "label": "vggt world: slime",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_slime.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_slime_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_slime_input.mp4"
+ },
+ {
+  "id": "vggt_yarn",
+  "label": "vggt world: yarn",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_yarn.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_yarn_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_yarn_input.mp4"
  },
  {
   "id": "m324_00b9f1343596",
