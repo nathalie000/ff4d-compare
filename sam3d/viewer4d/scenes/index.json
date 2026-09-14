@@ -1,5 +1,12 @@
 [
  {
+  "id": "vggt_libby",
+  "label": "vggt world: libby",
+  "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby.4dgs",
+  "scene_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby_scene.bin",
+  "video_url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/vggt_libby_input.mp4"
+ },
+ {
   "id": "m324_00b9f1343596",
   "label": "m324: 00b9f1343596",
   "url": "https://huggingface.co/datasets/ncc2/ff4d-viewer4d-scenes/resolve/main/scenes/m324_00b9f1343596.4dgs",

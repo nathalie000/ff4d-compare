@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Interactive 4D gaussian-splat viewer for ff4d-sam3d results (.4dgs files, v1 32B / v2 18B records). -->
+<!-- Interactive 4D gaussian-splat viewer for ff4d-sam3d results (.4dgs files, v1 32B / v2 18B records) with an optional VGGT scene point cloud (_scene.bin). -->
 <html>
 <head>
 <meta charset="utf-8">
@@ -34,6 +34,12 @@
     <option value="1" selected>1×</option><option value="2">2×</option></select>
   <button id="reset">reset view</button>
   <select id="bg"><option value="black" selected>black bg</option><option value="white">white bg</option></select>
+  <span id="sceneCtl" style="display:none">
+    <label><input type="checkbox" id="showObj" checked> object</label>
+    <label><input type="checkbox" id="showScene" checked> scene</label>
+    <label title="fraction of scene points drawn">pts <input type="range" id="sceneDens" min="1" max="100" value="100" style="width:90px"></label>
+    <label title="scene point size (px)">size <input type="range" id="scenePt" min="1" max="8" value="2" step="0.5" style="width:70px"></label>
+  </span>
   <span id="stat"></span>
 </div>
 <div id="hint">drag: orbit (full 360°) &nbsp; shift-drag / right-drag: pan &nbsp; scroll: zoom</div>
@@ -117,9 +123,53 @@ const quad = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, quad);
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-2,-2, 2,-2, -2,2, 2,2]), gl.STATIC_DRAW);
 const dataBuf = gl.createBuffer();
-gl.disable(gl.DEPTH_TEST);
-gl.enable(gl.BLEND);
 gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+
+// scene point cloud (VGGT), drawn with depth so it occludes the splats
+const SVS = `#version 300 es
+precision highp float;
+layout(location=0) in vec3 aP;      // normalized u16 in the scene bbox
+layout(location=1) in vec3 aC;      // normalized u8
+uniform mat4 uView, uProj; uniform vec3 uMin, uExt; uniform float uPt;
+out vec3 vC;
+void main() {
+  vec4 cam = uView * vec4(uMin + aP * uExt, 1.0);
+  gl_Position = uProj * cam; gl_PointSize = uPt; vC = aC;
+}`;
+const SFS = `#version 300 es
+precision highp float;
+in vec3 vC; out vec4 frag;
+void main() { frag = vec4(vC, 1.0); }`;
+const sprog = gl.createProgram();
+gl.attachShader(sprog, compile(gl.VERTEX_SHADER, SVS));
+gl.attachShader(sprog, compile(gl.FRAGMENT_SHADER, SFS));
+gl.linkProgram(sprog);
+if (!gl.getProgramParameter(sprog, gl.LINK_STATUS)) throw gl.getProgramInfoLog(sprog);
+const SU = n => gl.getUniformLocation(sprog, n);
+const scenePosBuf = gl.createBuffer(), sceneColBuf = gl.createBuffer();
+let sceneN = 0, sceneBox = null;
+function loadSceneCloud(ab) {
+  const dv = new DataView(ab);
+  if (dv.getUint32(0, true) !== 0x43534756) throw "bad scene magic";
+  sceneN = dv.getUint32(4, true);
+  sceneBox = new Float32Array(ab, 8, 6);
+  gl.bindBuffer(gl.ARRAY_BUFFER, scenePosBuf); gl.bufferData(gl.ARRAY_BUFFER, new Uint16Array(ab, 32, sceneN * 3), gl.STATIC_DRAW);
+  gl.bindBuffer(gl.ARRAY_BUFFER, sceneColBuf); gl.bufferData(gl.ARRAY_BUFFER, new Uint8Array(ab, 32 + sceneN * 6, sceneN * 3), gl.STATIC_DRAW);
+}
+function drawSceneCloud(view, proj) {
+  const frac = +document.getElementById("sceneDens").value / 100, n = Math.max(1, Math.floor(sceneN * frac));
+  gl.useProgram(sprog);
+  gl.enable(gl.DEPTH_TEST); gl.depthMask(true); gl.disable(gl.BLEND);
+  gl.uniformMatrix4fv(SU("uView"), false, view); gl.uniformMatrix4fv(SU("uProj"), false, proj);
+  gl.uniform3f(SU("uMin"), sceneBox[0], sceneBox[1], sceneBox[2]);
+  gl.uniform3f(SU("uExt"), (sceneBox[3] - sceneBox[0]) / 65535, (sceneBox[4] - sceneBox[1]) / 65535, (sceneBox[5] - sceneBox[2]) / 65535);
+  gl.uniform1f(SU("uPt"), +document.getElementById("scenePt").value * devicePixelRatio);
+  for (let i = 0; i < 5; i++) { gl.disableVertexAttribArray(i); gl.vertexAttribDivisor(i, 0); }
+  gl.bindBuffer(gl.ARRAY_BUFFER, scenePosBuf); gl.enableVertexAttribArray(0); gl.vertexAttribPointer(0, 3, gl.UNSIGNED_SHORT, true, 0, 0);
+  gl.bindBuffer(gl.ARRAY_BUFFER, sceneColBuf); gl.enableVertexAttribArray(1); gl.vertexAttribPointer(1, 3, gl.UNSIGNED_BYTE, true, 0, 0);
+  gl.drawArrays(gl.POINTS, 0, n);
+  return n;
+}
 
 // scene state — internal per-frame layout is always the v1 32B record
 const REC = 32;
@@ -260,12 +310,16 @@ function draw() {
   if (canvas.width !== w || canvas.height !== h) { canvas.width = w; canvas.height = h; }
   gl.viewport(0, 0, w, h);
   gl.clearColor(bgCol[0], bgCol[1], bgCol[2], 1);
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.depthMask(true); gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
   if (!frames.length) { requestAnimationFrame(draw); return; }
   const view = viewMatrix();
   const { m: proj, focal } = projMatrix(w, h);
+  let nScene = 0;
+  if (sceneN && document.getElementById("showScene").checked) nScene = drawSceneCloud(view, proj);
   if (!sorted[curFrame] || sorted[curFrame].epoch !== sortEpoch) sortFrame(curFrame, view);
   const fr = frames[curFrame];
+  gl.useProgram(prog);
+  gl.enable(gl.BLEND); gl.depthMask(false); if (sceneN) gl.enable(gl.DEPTH_TEST); else gl.disable(gl.DEPTH_TEST);
   gl.uniformMatrix4fv(U("uView"), false, view);
   gl.uniformMatrix4fv(U("uProj"), false, proj);
   gl.uniform2f(U("uFocal"), focal[0], focal[1]);
@@ -279,12 +333,12 @@ function draw() {
   gl.enableVertexAttribArray(2); gl.vertexAttribPointer(2, 3, gl.FLOAT, false, REC, 12); gl.vertexAttribDivisor(2, 1);
   gl.enableVertexAttribArray(3); gl.vertexAttribPointer(3, 4, gl.UNSIGNED_BYTE, true, REC, 24); gl.vertexAttribDivisor(3, 1);
   gl.enableVertexAttribArray(4); gl.vertexAttribPointer(4, 4, gl.UNSIGNED_BYTE, true, REC, 28); gl.vertexAttribDivisor(4, 1);
-  gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, fr.n);
+  if (document.getElementById("showObj").checked) gl.drawArraysInstanced(gl.TRIANGLE_STRIP, 0, 4, fr.n);
   if (playing && frames.length > 1) {          // pre-sort the next frame so playback never skips
     const nf = (curFrame + 1) % frames.length;
     if (!sorted[nf] || sorted[nf].epoch !== sortEpoch) sortFrame(nf, view);
   }
-  document.getElementById("stat").textContent = `${fr.n.toLocaleString()} splats`;
+  document.getElementById("stat").textContent = `${fr.n.toLocaleString()} splats` + (sceneN ? ` · ${nScene.toLocaleString()} / ${sceneN.toLocaleString()} scene pts` : "");
   document.getElementById("fno").textContent = `${curFrame + 1}/${frames.length}`;
   document.getElementById("frame").value = curFrame;
   requestAnimationFrame(draw);
@@ -378,6 +432,16 @@ async function loadScene(name) {
       ab = await r.arrayBuffer();
     }
     parse4dgs(ab);
+    sceneN = 0;
+    if (meta && meta.scene_url) {                 // VGGT scene point cloud in the same frame
+      document.getElementById("load").style.display = "flex";
+      document.getElementById("load").textContent = `loading scene of ${name}…`;
+      const r = await fetch(meta.scene_url);
+      if (!r.ok) throw `scene ${r.status}`;
+      loadSceneCloud(await r.arrayBuffer());
+      document.getElementById("load").style.display = "none";
+    }
+    document.getElementById("sceneCtl").style.display = sceneN ? "inline" : "none";
   } catch (err) {
     document.getElementById("load").textContent = `failed to load ${name}: ${err}`;
     return;
